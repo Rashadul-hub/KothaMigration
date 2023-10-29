@@ -1,3 +1,53 @@
 <resources>
-    <string name="app_name">KothaMigration</string>
+    <string name="app_name" translatable="false">KothaMigration</string>
+
+
+    <string name="welcome_message">Welcome</string>
+    <string name="hello">Hey There</string>
+    <string name="create_account">Create An Account</string>
+    <string name="first_name">First Name</string>
+
+
+
+    <string name="sign_in">Sign in</string>
+
+
+
+    <string name="type_your_11_digit">Type your 11 digit </string>
+    <string name="bangladeshi"> Bangladeshi </string>
+    <string name="number"> Number</string>
+    <string name="example">Example: 01713048764</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="dont_have_bangladeshi_number_tap_here">Don’t have a Bangladeshi Number? Tap here</string>
+    <string name="sms_sent">A SMS is sent to the number: 017150112222</string>
+    <string name="resend_in_seconds">Resend in 11 seconds</string>
+    <string name="attempts_left">3 attempts left</string>
+    <string name="confirm">Confirm</string>
+    <string name="wait_and_press">Wait and Press Resend if no OTP arrives</string>
+    <string name="contact_support">Contact Support </string>
+    <string name="info_kotha_app_email"> info@kotha.app</string>
+    <string name="switch_language">Switch Language</string>
+    <string name="error_phone_number_text">Please enter correct phone number</string>
+    <string name="terms_and_condition">Terms And Condition</string>
+    <string name="agree_and_continue">AGREE AND CONTINUE</string>
+
+
+    <string name="read_our"> Read our </string>
+    <string name="privacy_policy">Privacy Policy. </string>
+    <string name="term_of_service"> Terms of Service</string>
+    <string name="agree_continue"> Tap “Agree and continue” to accept the </string>
+
+
+
+
+    <string name="select_your_language">Select your Language</string>
+    <string name="select_your_interface">Select your preferred language for app interface</string>
+
+    <string name="invalid_action">Invalid , please try again</string>
+
+    <string name="error">ERROR</string>
+
+
+
 </resources>

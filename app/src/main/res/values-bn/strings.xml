@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="welcome_message">স্বাগতম</string>
+    <string name="hello">হ্যালো</string>
+    <string name="create_account">একটি অ্যাকাউন্ট তৈরি করুন</string>
+    <string name="first_name">নামের প্রথমাংশ</string>
+
+
+    <string name="sign_in">সাইন ইন</string>
+    <string name="type_your_11_digit">আপনার ১১ ডিজিট </string>
+    <string name="bangladeshi"> বাংলাদেশি </string>
+    <string name="number">নম্বর টাইপ করুন</string>
+    <string name="example">উদাহরণ:০১৭১৩০৪৮৭৬৪</string>
+    <string name="send_otp">ওটিপি পাঠান</string>
+    <string name="dont_have_bangladeshi_number_tap_here">বাংলাদেশী নম্বর নেই? এখানে ট্যাপ করুন</string>
+    <string name="otp_verification">ওটিপি যাচাই</string>
+    <string name="sms_sent">একটি এসএমএস পাঠানো হয়েছে নম্বর:০১৭১৫০১১২২২২</string>
+    <string name="resend_in_seconds">১১ সেকেন্ড পরে পুনরায় পাঠান</string>
+    <string name="attempts_left">৩টি চেষ্টা বাকি</string>
+    <string name="confirm">নিশ্চিত করুন</string>
+    <string name="wait_and_press">অপেক্ষা করুন এবং ওটিপি না পেলে পুনরায় পাঠান।</string>
+    <string name="contact_support">সহায়ক যোগাযোগ করুন </string>
+    <string name="info_kotha_app_email"> info@kotha.app</string>
+    <string name="switch_language">ভাষা পরিবর্তন করুন</string>
+    <string name="error_phone_number_text">সঠিক ফোন নম্বর দিন</string>
+    <string name="terms_and_condition">শর্তাদি এবং শর্ত</string>
+    <string name="agree_and_continue">আমি সম্মত, এগিয়ে যান</string>
+
+
+    <string name="read_our">আমাদের </string>
+    <string name="privacy_policy">প্রাইভেসি পলিসি  </string>
+    <string name="agree_continue"> এবং টার্মস অফ সার্ভিসেস এ সম্মতি থাকলে নিচের আমি সম্মত,এগিয়ে যান বাটনে ক্লিক করে অগ্রসর হন </string>
+    <string name="term_of_service">  </string>
+
+    <string name="select_your_language">আপনার ভাষা নির্বাচন করুন</string>
+    <string name="select_your_interface">অ্যাপের ইন্টারফেস জন্য আপনার পছন্দের ভাষা নির্বাচন করুন</string>
+
+    <string name="invalid_action">অবৈধ, আবার চেষ্টা করুন</string>
+
+    <string name="error">ভুল</string>
+
+
+
+</resources>

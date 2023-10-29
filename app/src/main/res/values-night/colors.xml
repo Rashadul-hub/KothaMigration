@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="title_color">#FFFFFF</color>
+    <color name="background_color">#CB1A1A1A</color>
+    <color name="green">#F064F884</color>
+    <color name="text_color_black">#FFFCFC</color>
+    <color name="hint_color">#B5B9F6</color>
+    <color name="button_color">#00D1B4</color>
+    <color name="dont_have_bangladeshi_Number">#00947F</color>
+    <color name="resend_button_color">#D9D9D9</color>
+    <color name="box_border_color">#DCDBDB</color>
+
+
+</resources>

@@ -1,13 +1,14 @@
 package com.example.kothamigration.model
 
 import androidx.compose.ui.platform.ComposeView
-import com.example.kothamigration.composablescreen.MyComposeScreen
+import androidx.navigation.NavController
+import com.example.kothamigration.app.ProjectApp
 
 class ComposeBridge {
 
-    fun callMyComposeScreen(composeView: ComposeView) {
+    fun callMyComposeScreen(composeView: ComposeView, navController: NavController) {
         composeView.setContent {
-            MyComposeScreen()
+            ProjectApp()
         }
     }
 }

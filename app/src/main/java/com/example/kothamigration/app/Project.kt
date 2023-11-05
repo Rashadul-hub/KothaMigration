@@ -15,6 +15,7 @@ import com.example.kothamigration.composablefunctions.AlertDialog
 import com.example.kothamigration.composablescreen.LanguageSelectionScreen
 import com.example.kothamigration.composablescreen.LoginScreen
 import com.example.kothamigration.composablescreen.OtpScreen
+import com.example.kothamigration.composablescreen.ProfileScreen
 import com.example.kothamigration.composablescreen.SwitchModeScreen
 import com.example.kothamigration.composablescreen.TermsAndConditionScreen
 import com.example.kothamigration.model.rememberWindowSizeClass
@@ -35,7 +36,7 @@ fun ProjectApp() {
 
         Surface(modifier = Modifier.fillMaxSize()) {
 
-            NavHost(navController = navController, startDestination = "language") {
+            NavHost(navController = navController,startDestination = "language") {
 
                 composable("language") {
                 LanguageSelectionScreen(navController = navController)
@@ -54,6 +55,9 @@ fun ProjectApp() {
                 }
                 composable("mode") {
                    SwitchModeScreen(navController = navController)
+                }
+                composable("profile"){
+                    ProfileScreen(navController = navController)
                 }
             }
 

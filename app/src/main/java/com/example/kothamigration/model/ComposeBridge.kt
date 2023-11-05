@@ -6,9 +6,9 @@ import com.example.kothamigration.app.ProjectApp
 
 class ComposeBridge {
 
-    fun callMyComposeScreen(composeView: ComposeView, navController: NavController) {
-        composeView.setContent {
-            ProjectApp()
-        }
-    }
-}
+     fun callMyComposeScreen(composeView: ComposeView, navController: NavController) {
+         composeView.setContent {
+             ProjectApp()
+         }
+     }
+ }

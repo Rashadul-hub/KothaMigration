@@ -49,14 +49,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.kothamigration.R
 import com.example.kothamigration.composablefunctions.CustomButton
 import com.example.kothamigration.composablefunctions.SignInTitle
+import com.example.kothamigration.model.ComposeBridge
+import com.example.kothamigration.model.Dimensions
+import com.example.kothamigration.model.WindowSize
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -64,16 +65,17 @@ import com.example.kothamigration.composablefunctions.SignInTitle
 @Composable
 fun LoginScreen(navController: NavController) {
 
+
+
     val windowSize = com.example.kothamigration.model.rememberWindowSizeClass()
     val dimensions = when (windowSize.width) {
-        is com.example.kothamigration.model.WindowSize.Small -> com.example.kothamigration.model.smallDimensions
-        is com.example.kothamigration.model.WindowSize.Compact -> com.example.kothamigration.model.compactDimensions
-        is com.example.kothamigration.model.WindowSize.Medium -> com.example.kothamigration.model.mediumDimensions
-        is com.example.kothamigration.model.WindowSize.Large -> com.example.kothamigration.model.largeDimensions
+        is WindowSize.Small -> com.example.kothamigration.model.smallDimensions
+        is WindowSize.Compact -> com.example.kothamigration.model.compactDimensions
+        is WindowSize.Medium -> com.example.kothamigration.model.mediumDimensions
+        is WindowSize.Large -> com.example.kothamigration.model.largeDimensions
     }
-
     // Determine whether the device is in landscape orientation
-    val isLandscape = windowSize.width is com.example.kothamigration.model.WindowSize.Large
+    val isLandscape = windowSize.width is WindowSize.Large
 
     Scaffold(
         topBar = {
@@ -127,14 +129,21 @@ fun LoginScreen(navController: NavController) {
             ) {
 
                 // Body Section
-                LoginContent(dimensions, navController)
+                LoginContent(dimensions, navController )
             }
         }
     }
 }
 
 @Composable
-fun LoginContent(dimensions: com.example.kothamigration.model.Dimensions, navController: NavController) {
+fun LoginContent(
+    dimensions: Dimensions,
+    navController: NavController,
+
+
+
+) {
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -164,7 +173,7 @@ fun LoginContent(dimensions: com.example.kothamigration.model.Dimensions, navCon
         Spacer(modifier = Modifier.height(dimensions.medium))
         PhoneNumberInput()
         Spacer(modifier = Modifier.height(dimensions.mediumLarge))
-        SendOTPButton(navController)
+        SendOTPButton( navController)
         Spacer(modifier = Modifier.height(dimensions.mediumLarge))
         RegisterLink()
     }
@@ -179,13 +188,12 @@ fun TitleSection() {
     val number = stringResource(R.string.number)
 
 
-
     val text = buildAnnotatedString {
         withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.secondary)) {
-            append(typeYour11Digit," ")
+            append(typeYour11Digit, " ")
         }
         withStyle(style = SpanStyle(color = Color(0xFF006115))) { // Set the color to green
-            append(bangladeshi," ")
+            append(bangladeshi, " ")
         }
         withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.secondary)) {
             append(number)
@@ -221,9 +229,6 @@ fun ExampleText() {
 }
 
 
-
-
-
 @Composable
 fun PhoneNumberInput() {
     var phoneNumber by remember {
@@ -242,7 +247,7 @@ fun PhoneNumberInput() {
                 value = phoneNumber,
                 onValueChange = {
                     phoneNumber = it
-                                },
+                },
                 modifier = Modifier
                     .fillMaxWidth() // Take the full available width within the Box
                     .widthIn(max = 333.dp) // maximum width
@@ -272,7 +277,7 @@ fun PhoneNumberInput() {
 }
 
 @Composable
-fun SendOTPButton(navController: NavController) {
+fun SendOTPButton( navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -291,6 +296,8 @@ fun SendOTPButton(navController: NavController) {
 }
 
 
+
+
 @Composable
 fun RegisterLink() {
     Text(
@@ -303,16 +310,9 @@ fun RegisterLink() {
             .fillMaxWidth() // Take the full available width
             .wrapContentHeight(), // Wrap the content for height
         color = Color(0xFF00947F),
-       // color = MaterialTheme.colorScheme.onPrimary,
+        // color = MaterialTheme.colorScheme.onPrimary,
         fontWeight = FontWeight(500),
         fontFamily = FontFamily(Font(R.font.inter_medium))
     )
-}
-
-@Preview
-@Composable
-fun View() {
-    val dummyNavController = rememberNavController() // Create a dummy NavController
-    LoginScreen(navController = dummyNavController)
 }
 

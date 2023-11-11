@@ -120,7 +120,7 @@ fun AlertDialog(navController: NavController) {
 
                         CustomButton(buttonText = "Okay") {
                             ///used FOr Demo Purpose
-                            navController.navigate("mode")
+                            navController.navigate("profilesetup")
                         }
 
 

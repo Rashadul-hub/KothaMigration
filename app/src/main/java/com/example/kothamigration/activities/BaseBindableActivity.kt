@@ -1,4 +1,5 @@
-package com.example.kothamigration.activities
+package com.bs.kotha.framework.base
+
 
 import android.content.Context
 import android.os.Handler
@@ -86,6 +87,8 @@ abstract class BaseBindableActivity : AppCompatActivity(), View.OnClickListener,
     protected var progressLoaderDialog: AlertDialog? = null
     private var numberOfChecks = 0
     private val handler = Handler()
+
+
     private val trackOngoingTokenRefreshProcess: Runnable = object : Runnable {
         override fun run() {
             if (numberOfChecks < MAX_CHECKS) {
@@ -102,6 +105,8 @@ abstract class BaseBindableActivity : AppCompatActivity(), View.OnClickListener,
             }
         }
     }
+
+
     private val apiUnauthorizedErrorListener: ApiCallEventListener.ApiUnauthorizedErrorListener =
         ApiCallEventListener.ApiUnauthorizedErrorListener { url -> refreshToken() }
 
@@ -436,7 +441,8 @@ abstract class BaseBindableActivity : AppCompatActivity(), View.OnClickListener,
         ) {
             return
         }
-        /*Log.d("Firebase", "is call running: " + KothaApp.getInstance().getCallManager().isCallRunning());
+        /*
+        Log.d("Firebase", "is call running: " + KothaApp.getInstance().getCallManager().isCallRunning());
         if (!KothaApp.getInstance().getCallManager().isCallRunning()) {
             Intent intent = new Intent(getApplicationContext(), IncomingCallService.class);
             intent.setAction(IncomingCallService.ACTION_START_INCOMING_CALL);
@@ -458,7 +464,8 @@ abstract class BaseBindableActivity : AppCompatActivity(), View.OnClickListener,
             if (!TextUtils.equals(jsonObject.optString("uniqueCallID"), KothaApp.getInstance().getCallManager().getRunningCallId())) {
                 PacketSender.getInstance().sendCallRejectPacket(RealmProfileController.getUserProfileId(), jsonObject.optString("from"), jsonObject.optString("uniqueCallID"));
             }
-        }*/
+        }
+        */
 
 //        runOnUiThread(() -> {
 //            String uniqueCallID = jsonObject.optString("uniqueCallID");

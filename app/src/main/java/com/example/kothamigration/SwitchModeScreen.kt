@@ -1,4 +1,4 @@
-package com.example.kothamigration.composablescreen
+package com.example.kothamigration
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.kothamigration.composablefunctions.ThemeSwitch
 import com.example.kothamigration.composablefunctions.TitleText
-import com.example.kothamigration.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)

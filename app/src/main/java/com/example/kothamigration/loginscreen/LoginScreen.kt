@@ -1,4 +1,4 @@
-package com.example.kothamigration.composablescreen
+package com.example.kothamigration.loginscreen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -55,7 +55,6 @@ import androidx.navigation.NavController
 import com.example.kothamigration.R
 import com.example.kothamigration.composablefunctions.CustomButton
 import com.example.kothamigration.composablefunctions.SignInTitle
-import com.example.kothamigration.model.ComposeBridge
 import com.example.kothamigration.model.Dimensions
 import com.example.kothamigration.model.WindowSize
 

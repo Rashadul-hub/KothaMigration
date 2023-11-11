@@ -1,6 +1,9 @@
 package com.example.kothamigration.app
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -12,13 +15,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.kothamigration.composablefunctions.AlertDialog
-import com.example.kothamigration.composablescreen.LanguageSelectionScreen
-import com.example.kothamigration.composablescreen.LoginScreen
-import com.example.kothamigration.composablescreen.OtpScreen
-import com.example.kothamigration.composablescreen.ProfileScreen
-import com.example.kothamigration.composablescreen.SwitchModeScreen
-import com.example.kothamigration.composablescreen.TermsAndConditionScreen
+import com.example.kothamigration.loginscreen.LanguageSelectionScreen
+import com.example.kothamigration.loginscreen.LoginScreen
+import com.example.kothamigration.loginscreen.OtpScreen
+import com.example.kothamigration.SwitchModeScreen
+import com.example.kothamigration.homescreen.BottomNavigationBar
+import com.example.kothamigration.homescreen.FeedScreen
+import com.example.kothamigration.loginscreen.TermsAndConditionScreen
+import com.example.kothamigration.model.BottomNavGraph
+import com.example.kothamigration.model.BottomNavbar
 import com.example.kothamigration.model.rememberWindowSizeClass
+import com.example.kothamigration.profilescreen.ProfileSetUpScreen
 import com.example.kothamigration.theme.KothaTheme
 
 /**This File Contains All The Screens**/
@@ -28,7 +35,6 @@ var darkMode by mutableStateOf(false) //For// Switching Theme Dark -> Light Mode
 @Composable
 fun ProjectApp() {
 
-
     val window = rememberWindowSizeClass()
     val navController = rememberNavController()
 
@@ -36,11 +42,13 @@ fun ProjectApp() {
 
         Surface(modifier = Modifier.fillMaxSize()) {
 
-            NavHost(navController = navController,startDestination = "language") {
+            
+
+            NavHost(navController = navController, startDestination = "language") {
 
                 composable("language") {
-                LanguageSelectionScreen(navController = navController)
-            }
+                    LanguageSelectionScreen(navController = navController)
+                }
                 composable("login") {
                     LoginScreen(navController = navController)
                 }
@@ -53,15 +61,20 @@ fun ProjectApp() {
                 composable("dialog") {
                     AlertDialog(navController = navController)
                 }
-                composable("mode") {
-                   SwitchModeScreen(navController = navController)
+                composable("profilesetup") {
+                    ProfileSetUpScreen(navController = navController)
                 }
-                composable("profile"){
-                    ProfileScreen(navController = navController)
+                composable("feed") {
+                    FeedScreen()
+                    BottomNavigationBar()
+                }
+                composable("mode") {
+                    SwitchModeScreen(navController = navController)
                 }
             }
 
         }
+
     }
 }
 

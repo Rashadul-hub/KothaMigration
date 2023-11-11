@@ -1,4 +1,4 @@
-package com.example.kothamigration.composablescreen
+package com.example.kothamigration.loginscreen
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -24,7 +24,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -267,7 +266,6 @@ fun ClickableOption(optionText: String, context: Context, navController: NavCont
         modifier = Modifier
             .clickable {
                 // Change the app's language
-
                 context.resources.updateConfiguration(
                     configuration,
                     context.resources.displayMetrics

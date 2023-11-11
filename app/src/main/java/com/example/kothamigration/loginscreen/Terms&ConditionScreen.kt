@@ -1,4 +1,4 @@
-package com.example.kothamigration.composablescreen
+package com.example.kothamigration.loginscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

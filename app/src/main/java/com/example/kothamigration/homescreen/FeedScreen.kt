@@ -23,6 +23,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.NotificationsNone
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Verified
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -112,8 +113,25 @@ fun FeedScreen() {
                         )
 
                     }
-                },title = {
-                    SignInTitle(text = stringResource(id = R.string.bangladeshi_hero))
+                }, title = {
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+
+                    ) {
+
+                        SignInTitle(text = stringResource(id = R.string.bangladeshi_hero))
+                        Icon(
+                            imageVector = Icons.Default.Verified,
+                            contentDescription = "verified",
+                            tint = Color(0xFF00B99F)
+                        )
+
+
+                    }
+
+
                 })
 
                 AppToolBar()
@@ -566,29 +584,18 @@ fun PostNudgeCount(modifier: Modifier = Modifier, pagerState: PagerState) {
 
 
 /** Get The Users story Data without api**/
-//fun getStories(): List<Stories> =
-//    listOf(
-//        Stories(userName = "Stories", profile = R.drawable.user),
-//        Stories(userName = "Users", profile = R.drawable.user2),
-//        Stories(userName = "Explore", profile = R.drawable.user3),
-//        Stories(userName = "Mime TV", profile = R.drawable.user4),
-//        Stories(userName = "Movies", profile = R.drawable.user5),
-//        Stories(userName = "Mime TV", profile = R.drawable.user4),
-//        Stories(userName = "Users", profile = R.drawable.user2),
-//        Stories(userName = "Explore", profile = R.drawable.user3),
-//
-//        )
-fun getStories(): List<Stories> = listOf(
-        Stories(userName = "Stories", profile = R.drawable.user),
-        Stories(userName = "Users", profile = R.drawable.user2),
-        Stories(userName = "Explore", profile = R.drawable.user3),
-        Stories(userName = "Mime TV", profile = R.drawable.user4),
-        Stories(userName = "Movies", profile = R.drawable.user5),
-        Stories(userName = "Mime TV", profile = R.drawable.user4),
-        Stories(userName = "Users", profile = R.drawable.user2),
-        Stories(userName = "Explore", profile = R.drawable.user3),
 
-        )
+fun getStories(): List<Stories> = listOf(
+    Stories(userName = "Stories", profile = R.drawable.user),
+    Stories(userName = "Users", profile = R.drawable.user2),
+    Stories(userName = "Explore", profile = R.drawable.user3),
+    Stories(userName = "Mime TV", profile = R.drawable.user4),
+    Stories(userName = "Movies", profile = R.drawable.user5),
+    Stories(userName = "Mime TV", profile = R.drawable.user4),
+    Stories(userName = "Users", profile = R.drawable.user2),
+    Stories(userName = "Explore", profile = R.drawable.user3),
+
+    )
 
 
 /** Getting Post Data Without APi **/

@@ -1,9 +1,6 @@
 package com.example.kothamigration.app
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,18 +11,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.kothamigration.SwitchModeScreen
 import com.example.kothamigration.composablefunctions.AlertDialog
+import com.example.kothamigration.homescreen.BottomNavigationBar
+import com.example.kothamigration.homescreen.FeedScreen
 import com.example.kothamigration.loginscreen.LanguageSelectionScreen
 import com.example.kothamigration.loginscreen.LoginScreen
 import com.example.kothamigration.loginscreen.OtpScreen
-import com.example.kothamigration.SwitchModeScreen
-import com.example.kothamigration.homescreen.BottomNavigationBar
-import com.example.kothamigration.homescreen.FeedScreen
 import com.example.kothamigration.loginscreen.TermsAndConditionScreen
-import com.example.kothamigration.model.BottomNavGraph
-import com.example.kothamigration.model.BottomNavbar
 import com.example.kothamigration.model.rememberWindowSizeClass
 import com.example.kothamigration.profilescreen.ProfileSetUpScreen
+import com.example.kothamigration.sellonboarding.Demo2
 import com.example.kothamigration.theme.KothaTheme
 
 /**This File Contains All The Screens**/
@@ -44,7 +40,7 @@ fun ProjectApp() {
 
             
 
-            NavHost(navController = navController, startDestination = "language") {
+            NavHost(navController = navController, startDestination = "sell") {
 
                 composable("language") {
                     LanguageSelectionScreen(navController = navController)
@@ -70,6 +66,9 @@ fun ProjectApp() {
                 }
                 composable("mode") {
                     SwitchModeScreen(navController = navController)
+                }
+                composable("sell"){
+                    Demo2()
                 }
             }
 

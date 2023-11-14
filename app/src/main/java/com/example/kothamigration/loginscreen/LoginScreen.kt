@@ -49,9 +49,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.kothamigration.R
 import com.example.kothamigration.composablefunctions.CustomButton
 import com.example.kothamigration.composablefunctions.SignInTitle
@@ -315,3 +317,9 @@ fun RegisterLink() {
     )
 }
 
+@Preview
+@Composable
+fun LoginView() {
+    val dummyNavController = rememberNavController() // Create a dummy NavController
+    LoginScreen(navController = dummyNavController)
+}

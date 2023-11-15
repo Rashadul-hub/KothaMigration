@@ -2,6 +2,10 @@ package com.example.kothamigration.sellonboarding
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.Interaction
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,10 +29,12 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -190,6 +197,7 @@ fun bKashNumberBox() {
     var phoneNumber by remember {
         mutableStateOf("")
     }
+
     Box(
         contentAlignment = Alignment.Center, // Center the content horizontally and vertically
         modifier = Modifier
@@ -228,11 +236,12 @@ fun bKashNumberBox() {
                     .widthIn(max = 315.dp) // maximum width
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline, // Inner Border Color
+                        color =  MaterialTheme.colorScheme.outline,// Inner Border Color
                         shape = RoundedCornerShape(size = 4.dp)
 
                     ),
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone),
+
 
                 textStyle = TextStyle(
                     fontSize = 18.sp,
@@ -244,87 +253,42 @@ fun bKashNumberBox() {
                 ),
 
 
-                )
 
-        }
-    }
-}
+                leadingIcon = {
 
-@Composable
-fun SellerDescription() {
-    var strings by remember {
-        mutableStateOf("")
-    }
-    Box(
-        contentAlignment = Alignment.Center, // Center the content horizontally and vertically
-        modifier = Modifier
-            .fillMaxWidth() // Take the full available width
-            .padding(horizontal = 16.dp) // Add horizontal padding
-            .padding(vertical = 6.dp)
-    ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.fillMaxWidth()
+                    IconButton(onClick = { phoneNumber = " " })// Clear the text field on click
+                    {
 
-        ) {
-            Text(
-                text = "Seller Description",
-                fontSize = 11.62.sp,
-                color = MaterialTheme.colorScheme.secondary,
-                fontFamily = FontFamily(Font(R.font.inter_medium)),
-                fontWeight = FontWeight(500),
-                letterSpacing = 0.4.sp,
-                modifier = Modifier.padding(start = 2.dp, top = 4.dp)
-            )
-
-            //Input Seller Descriptions
-
-            BasicTextField(
-                value = strings,
-                onValueChange = {
-                    // Character Limit
-                    if (it.length <=60){
-                        strings = it
-
+                        androidx.compose.material.Icon(
+                            painter = painterResource(id = R.drawable.mobile_icon),
+                            contentDescription = "Clear",
+                            tint = Color(0xFF000000),
+                            modifier = Modifier.size(24.dp)
+                        )
                     }
+
+
                 },
 
-                modifier = Modifier
-                    .fillMaxWidth() // Take the full available width within the Box
-                    .widthIn(max = 268.dp) // maximum width
-                    .height(132.dp)
-                    .verticalScroll(rememberScrollState())
-                    .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline ,// Inner Border Color
-                        shape = RoundedCornerShape(size = 4.dp)
-                    )
-                    .padding(start = 16.dp, top = 10.dp, end = 16.dp, bottom = 10.dp),
-
-
-                textStyle = TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight(400),
-                    color = MaterialTheme.colorScheme.secondary,// Regular Black Color
-                    textAlign = TextAlign.Center,
-                    fontFamily = FontFamily(Font(R.font.inter_regular))
-                ),
-
                 )
+
         }
     }
 }
+
+
 
 @Composable
 fun Re_confirmNumber() {
-    var phoneNumber by remember {
-        mutableStateOf("")
-    }
-    val isTextFieldEmpty by remember(phoneNumber) {
-        derivedStateOf {
-            phoneNumber.isEmpty()
-        }
-    }
+    var phoneNumber by remember { mutableStateOf("") }
+    val isTextFieldEmpty by remember(phoneNumber) { derivedStateOf { phoneNumber.isEmpty() } }
+
+    // Interaction source to track interactions with the TextField
+    val interactionSource = remember { MutableInteractionSource() }
+    // Remember the updated interaction state
+    val borderColor by interactionSource.collectIsPressedAsState()
+
+
     Box(
         contentAlignment = Alignment.Center, // Center the content horizontally and vertically
         modifier = Modifier
@@ -363,7 +327,7 @@ fun Re_confirmNumber() {
                     .widthIn(max = 315.dp) // maximum width
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline ,// Inner Border Color
+                        color = if (borderColor) Color(0xFF00B99F) else MaterialTheme.colorScheme.outline,// Inner Border Color
                         shape = RoundedCornerShape(size = 4.dp)
 
                     ),
@@ -378,6 +342,7 @@ fun Re_confirmNumber() {
                     fontFamily = FontFamily(Font(R.font.inter_regular))
                 ),
 
+                interactionSource = interactionSource,
 
                 trailingIcon = {
                     if (!isTextFieldEmpty) {
@@ -398,6 +363,84 @@ fun Re_confirmNumber() {
 
             )
 
+        }
+    }
+}
+
+
+
+
+
+@Composable
+fun SellerDescription() {
+    var strings by remember {
+        mutableStateOf("")
+    }
+
+    // Interaction source to track interactions with the TextField
+    val interactionSource = remember { MutableInteractionSource() }
+
+    // Remember the updated interaction state
+    val borderColor by interactionSource.collectIsPressedAsState()
+
+    Box(
+        contentAlignment = Alignment.Center, // Center the content horizontally and vertically
+        modifier = Modifier
+            .fillMaxWidth() // Take the full available width
+            .padding(horizontal = 16.dp) // Add horizontal padding
+            .padding(vertical = 6.dp)
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier.fillMaxWidth()
+
+        ) {
+            Text(
+                text = "Seller Description",
+                fontSize = 11.62.sp,
+                color = MaterialTheme.colorScheme.secondary,
+                fontFamily = FontFamily(Font(R.font.inter_medium)),
+                fontWeight = FontWeight(500),
+                letterSpacing = 0.4.sp,
+                modifier = Modifier.padding(start = 2.dp, top = 4.dp)
+            )
+
+            //Input Seller Descriptions
+
+            BasicTextField(
+                value = strings,
+                onValueChange = {
+                    // Character Limit
+                    if (it.length <= 60) {
+                        strings = it
+
+                    }
+                },
+
+                modifier = Modifier
+                    .fillMaxWidth() // Take the full available width within the Box
+                    .widthIn(max = 268.dp) // maximum width
+                    .height(132.dp)
+                    .verticalScroll(rememberScrollState())
+                    .border(
+                        width = 1.dp,
+                        color = if (borderColor) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,// Inner Border Color
+                        shape = RoundedCornerShape(size = 4.dp)
+                    )
+                    .padding(start = 16.dp, top = 10.dp, end = 16.dp, bottom = 10.dp),
+
+
+                textStyle = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight(400),
+                    color = MaterialTheme.colorScheme.secondary,// Regular Black Color
+                    textAlign = TextAlign.Center,
+                    fontFamily = FontFamily(Font(R.font.inter_regular))
+                ),
+                interactionSource = interactionSource,
+
+
+                )
         }
     }
 }

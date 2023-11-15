@@ -22,6 +22,7 @@ import com.example.kothamigration.loginscreen.TermsAndConditionScreen
 import com.example.kothamigration.model.rememberWindowSizeClass
 import com.example.kothamigration.profilescreen.ProfileSetUpScreen
 import com.example.kothamigration.sellonboarding.Demo2
+import com.example.kothamigration.sellonboarding.SellFrame2
 import com.example.kothamigration.theme.KothaTheme
 
 /**This File Contains All The Screens**/

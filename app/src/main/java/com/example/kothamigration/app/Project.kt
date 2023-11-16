@@ -23,6 +23,7 @@ import com.example.kothamigration.model.rememberWindowSizeClass
 import com.example.kothamigration.profilescreen.ProfileSetUpScreen
 import com.example.kothamigration.sellonboarding.Demo2
 import com.example.kothamigration.sellonboarding.SellFrame2
+import com.example.kothamigration.sellonboarding.SellFrame3
 import com.example.kothamigration.theme.KothaTheme
 
 /**This File Contains All The Screens**/
@@ -69,7 +70,7 @@ fun ProjectApp() {
                     SwitchModeScreen(navController = navController)
                 }
                 composable("sell"){
-                    Demo2()
+                    SellFrame2()
                 }
             }
 

@@ -11,13 +11,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -27,13 +25,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.kothamigration.R
 import com.example.kothamigration.composablefunctions.CustomButton
+import com.example.kothamigration.composablefunctions.ReusableText
 import com.example.kothamigration.model.Dimensions
 import com.example.kothamigration.model.WindowSize
 import com.example.kothamigration.model.compactDimensions
@@ -168,32 +164,50 @@ fun GetStartedButton() {
 @Composable
 fun TextContents(dimensions: Dimensions) {
 
-    Text(
+//    Text(
+//        text = "Earn",
+//        textAlign = TextAlign.Center,
+//        fontSize = 24.sp,
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .wrapContentHeight(),
+//        color = MaterialTheme.colorScheme.secondary,
+//        fontWeight = FontWeight(700),
+//        fontFamily = FontFamily(Font(R.font.inter_bold)),
+//    )
+//
+//    Spacer(modifier = Modifier.height(dimensions.smallMedium))
+//
+//    Text(
+//        text = "Start earning by selling your digital contents or skills. ",
+//        textAlign = TextAlign.Center,
+//        fontSize = 18.sp,
+//        overflow = TextOverflow.Ellipsis,
+//        modifier = Modifier
+//            .fillMaxWidth() //Take the full available width
+//            .wrapContentHeight(),// Wrap the content for height
+//        color = MaterialTheme.colorScheme.secondary,
+//        fontWeight = FontWeight(300),
+//        fontFamily = FontFamily(Font(R.font.inter_light)),
+//    )
+    ReusableText(
         text = "Earn",
-        textAlign = TextAlign.Center,
-        fontSize = 24.sp,
-        modifier = Modifier
-            .fillMaxWidth() //Take the full available width
-            .wrapContentHeight(),// Wrap the content for height
-        color = MaterialTheme.colorScheme.secondary,
+        fontSize = 24,
         fontWeight = FontWeight(700),
         fontFamily = FontFamily(Font(R.font.inter_bold)),
     )
 
     Spacer(modifier = Modifier.height(dimensions.smallMedium))
 
-    Text(
-        text = "Start earning by selling your digital contents or skills. ",
-        textAlign = TextAlign.Center,
-        fontSize = 18.sp,
-        overflow = TextOverflow.Ellipsis,
-        modifier = Modifier
-            .fillMaxWidth() //Take the full available width
-            .wrapContentHeight(),// Wrap the content for height
-        color = MaterialTheme.colorScheme.secondary,
+    ReusableText(
+        text = "Start earning by selling your digital contents or skills.",
+        fontSize = 18,
         fontWeight = FontWeight(300),
         fontFamily = FontFamily(Font(R.font.inter_light)),
     )
+
+
+
 }
 
 

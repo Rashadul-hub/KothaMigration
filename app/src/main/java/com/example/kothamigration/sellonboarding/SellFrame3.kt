@@ -147,10 +147,11 @@ fun SellFrame3Contents(dimensions: Dimensions) {
         // Gird View Selection
         ChoicesView()
 
+
+
         Spacer(modifier = Modifier.weight(0.1f))
 
         TitlesAndSubTitles(dimensions)
-
 
         Spacer(modifier = Modifier.height(dimensions.medium))
         Spacer(modifier = Modifier.height(dimensions.medium))
@@ -175,58 +176,6 @@ fun SellFrame3Contents(dimensions: Dimensions) {
 
 }
 
-
-@Composable
-fun NextButton() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            horizontalAlignment = CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            CustomButton(buttonText = "Next") {
-
-            }
-        }
-    }
-}
-
-@Composable
-fun TitlesAndSubTitles(dimensions: Dimensions) {
-
-    Text(
-        text = "Select type",
-        textAlign = TextAlign.Center,
-        fontSize = 24.sp,
-        modifier = Modifier
-            .fillMaxWidth() //Take the full available width
-            .wrapContentHeight(),// Wrap the content for height
-        color = MaterialTheme.colorScheme.secondary,
-        fontWeight = FontWeight(700),
-        fontFamily = FontFamily(Font(R.font.inter_bold)),
-    )
-
-    Spacer(modifier = Modifier.height(dimensions.smallMedium))
-
-    Text(
-        text = " What do you want to sell? ",
-        textAlign = TextAlign.Center,
-        fontSize = 18.sp,
-        overflow = TextOverflow.Ellipsis,
-        modifier = Modifier
-            .fillMaxWidth() //Take the full available width
-            .wrapContentHeight(),// Wrap the content for height
-        color = MaterialTheme.colorScheme.secondary,
-        fontWeight = FontWeight(300),
-        fontFamily = FontFamily(Font(R.font.inter_light)),
-    )
-}
-
-
 @Composable
 fun ChoicesView() {
     var selectedItem by remember { mutableStateOf<String?>(null) }
@@ -247,7 +196,7 @@ fun ChoicesView() {
                     horizontalArrangement = Arrangement.spacedBy(9.dp),
                 ) {
                     item {
-                        ChoiceItemView(
+                        ChoiceItem(
                             "Video",
                             "Sell your video and get paid per download.",
                             selectedItem == "Video",
@@ -260,7 +209,7 @@ fun ChoicesView() {
                         }
                     }
                     item {
-                        ChoiceItemView(
+                        ChoiceItem(
                             "Image",
                             "Sell your photography or artwork and get paid per download.",
                             selectedItem == "Image",
@@ -274,7 +223,7 @@ fun ChoicesView() {
             item {
                 LazyRow(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
                     item {
-                        ChoiceItemView(
+                        ChoiceItem(
                             "Skill",
                             "Sell appointments for your time. You get paid for each booked time slot.",
                             selectedItem == "Skill",
@@ -284,7 +233,7 @@ fun ChoicesView() {
                         }
                     }
                     item {
-                        ChoiceItemView(
+                        ChoiceItem(
                             "Audio",
                             "Sell your music and get paid per download.",
                             selectedItem == "Audio",
@@ -297,7 +246,7 @@ fun ChoicesView() {
             item {
                 LazyRow(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
                     item {
-                        ChoiceItemView(
+                        ChoiceItem(
                             "Pdf",
                             "Sell your e-book, report or blog and get paid for each download.",
                             selectedItem == "Pdf",
@@ -306,7 +255,7 @@ fun ChoicesView() {
                         }
                     }
                     item {
-                        ChoiceItemView(
+                        ChoiceItem(
                             "Text",
                             "Sell coupons, promo code, poem and get paid per download.",
                             selectedItem == "Text",
@@ -322,7 +271,7 @@ fun ChoicesView() {
 }
 
 @Composable
-fun ChoiceItemView(
+fun ChoiceItem(
     title: String,
     subtitle: String,
     isSelected: Boolean,
@@ -421,6 +370,59 @@ fun ChoiceItemView(
 
     }
 }
+
+@Composable
+fun NextButton() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            CustomButton(buttonText = "Next") {
+
+            }
+        }
+    }
+}
+
+@Composable
+fun TitlesAndSubTitles(dimensions: Dimensions) {
+
+    Text(
+        text = "Select type",
+        textAlign = TextAlign.Center,
+        fontSize = 24.sp,
+        modifier = Modifier
+            .fillMaxWidth() //Take the full available width
+            .wrapContentHeight(),// Wrap the content for height
+        color = MaterialTheme.colorScheme.secondary,
+        fontWeight = FontWeight(700),
+        fontFamily = FontFamily(Font(R.font.inter_bold)),
+    )
+
+    Spacer(modifier = Modifier.height(dimensions.smallMedium))
+
+    Text(
+        text = " What do you want to sell? ",
+        textAlign = TextAlign.Center,
+        fontSize = 18.sp,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier
+            .fillMaxWidth() //Take the full available width
+            .wrapContentHeight(),// Wrap the content for height
+        color = MaterialTheme.colorScheme.secondary,
+        fontWeight = FontWeight(300),
+        fontFamily = FontFamily(Font(R.font.inter_light)),
+    )
+}
+
+
+
 
 @Preview(showBackground = true)
 @Composable

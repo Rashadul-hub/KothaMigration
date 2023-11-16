@@ -115,42 +115,6 @@ fun ResendButton(
 
 
 ///Send OTP Button
-@Composable
-fun CustomButton(
-    buttonText: String,
-    onClick: () -> Unit,
-) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier
-            .width(307.dp) // Fixed width
-            .height(55.dp)
-            .fillMaxWidth() // Take the full available width
-            .clip(
-                RoundedCornerShape(
-                    topStart = 6.dp,
-                    topEnd = 16.dp,
-                    bottomStart = 16.dp,
-                    bottomEnd = 16.dp
-                )
-            )
-
-            .background(MaterialTheme.colorScheme.primary)
-            .padding(horizontal = 16.dp),
-        contentPadding = PaddingValues(0.dp), // Remove default content padding
-    ) {
-        Text(
-            text = buttonText,
-            textAlign = TextAlign.Center,
-            fontSize = 20.sp,
-            letterSpacing = (-0.3).sp,
-            color = Color.White, // Button Text Color
-            fontWeight = FontWeight(600),
-            fontFamily = FontFamily(Font(R.font.inter_semi_bold)),
-            modifier = Modifier.align(Alignment.CenterVertically) // Align text vertically in the center
-        )
-    }
-}
 
 
 ///Switch Theme Mode

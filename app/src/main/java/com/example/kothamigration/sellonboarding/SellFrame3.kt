@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
@@ -52,7 +53,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kothamigration.R
+import com.example.kothamigration.composablefunctions.Choice
+import com.example.kothamigration.composablefunctions.ChoicesRow
 import com.example.kothamigration.composablefunctions.CustomButton
+import com.example.kothamigration.composablefunctions.ReusableText
 import com.example.kothamigration.model.Dimensions
 import com.example.kothamigration.model.WindowSize
 import com.example.kothamigration.model.compactDimensions
@@ -151,7 +155,7 @@ fun SellFrame3Contents(dimensions: Dimensions) {
 
         Spacer(modifier = Modifier.weight(0.1f))
 
-        TitlesAndSubTitles(dimensions)
+        SellFrame3Titles(dimensions)
 
         Spacer(modifier = Modifier.height(dimensions.medium))
         Spacer(modifier = Modifier.height(dimensions.medium))
@@ -175,7 +179,6 @@ fun SellFrame3Contents(dimensions: Dimensions) {
 
 
 }
-
 @Composable
 fun ChoicesView() {
     var selectedItem by remember { mutableStateOf<String?>(null) }
@@ -192,184 +195,40 @@ fun ChoicesView() {
                 .align(TopCenter)
         ) {
             item {
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(9.dp),
-                ) {
-                    item {
-                        ChoiceItem(
-                            "Video",
-                            "Sell your video and get paid per download.",
-                            selectedItem == "Video",
-
-
-                            ) {
-
-                            selectedItem = "Video"
-
-                        }
-                    }
-                    item {
-                        ChoiceItem(
-                            "Image",
-                            "Sell your photography or artwork and get paid per download.",
-                            selectedItem == "Image",
-                        ) {
-                            selectedItem = "Image"
-
-                        }
-                    }
-                }
+                ChoicesRow(
+                    choices = listOf(
+                        Choice("Video", "Sell your video and get paid per download."),
+                        Choice("Image", "Sell your photography or artwork and get paid per download."),
+                    ),
+                    selectedItem = selectedItem,
+                    onItemSelected = { selectedItem = it }
+                )
             }
             item {
-                LazyRow(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                    item {
-                        ChoiceItem(
-                            "Skill",
-                            "Sell appointments for your time. You get paid for each booked time slot.",
-                            selectedItem == "Skill",
-                        ) {
-                            selectedItem = "Skill"
-
-                        }
-                    }
-                    item {
-                        ChoiceItem(
-                            "Audio",
-                            "Sell your music and get paid per download.",
-                            selectedItem == "Audio",
-                        ) {
-                            selectedItem = "Audio"
-                        }
-                    }
-                }
+                ChoicesRow(
+                    choices = listOf(
+                        Choice("Skill", "Sell appointments for your time. You get paid for each booked time slot."),
+                        Choice("Audio", "Sell your music and get paid per download."),
+                    ),
+                    selectedItem = selectedItem,
+                    onItemSelected = { selectedItem = it }
+                )
             }
             item {
-                LazyRow(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                    item {
-                        ChoiceItem(
-                            "Pdf",
-                            "Sell your e-book, report or blog and get paid for each download.",
-                            selectedItem == "Pdf",
-                        ) {
-                            selectedItem = "Pdf"
-                        }
-                    }
-                    item {
-                        ChoiceItem(
-                            "Text",
-                            "Sell coupons, promo code, poem and get paid per download.",
-                            selectedItem == "Text",
-
-                            ) {
-                            selectedItem = "Text"
-                        }
-                    }
-                }
+                ChoicesRow(
+                    choices = listOf(
+                        Choice("Pdf", "Sell your e-book, report or blog and get paid for each download."),
+                        Choice("Text", "Sell coupons, promo code, poem and get paid per download."),
+                    ),
+                    selectedItem = selectedItem,
+                    onItemSelected = { selectedItem = it }
+                )
             }
         }
     }
 }
 
-@Composable
-fun ChoiceItem(
-    title: String,
-    subtitle: String,
-    isSelected: Boolean,
-    onItemClick: () -> Unit,
 
-    ) {
-    val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
-
-    val backgroundColor = if (title == "Image") {
-        if (isSelected) {
-            Color(0xFF24DDBD)
-        } else {
-            Color.White
-        }
-    } else if (isSelected) {
-        Color(0xFF24DDBD)
-    } else {
-        Color(0x1F1D1B20)
-    }
-    val checkIconAlpha = if (isSelected) 1f else 0f
-
-    val itemWidth = if (isLandscape) {
-        250.dp // Adjust the width for landscape mode
-    } else {
-        165.dp // Default width for portrait mode
-    }
-
-    Box(
-        modifier = Modifier
-            .width(itemWidth)
-            .height(100.dp)
-            .border(0.1.dp, color = Color(0x2D1D1B20), shape = RoundedCornerShape(2.dp))
-            .background(color = backgroundColor, shape = RoundedCornerShape(2.dp))
-            .padding(8.dp)
-            .clickable(onClick = onItemClick),
-
-        ) {
-        Column(
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            Text(
-                text = title,
-                textAlign = TextAlign.Start,
-                fontSize = 18.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
-                color = MaterialTheme.colorScheme.onSurface,
-                fontWeight = FontWeight(500),
-                fontFamily = FontFamily(Font(R.font.inter_medium))
-            )
-
-            Text(
-                text = subtitle,
-                textAlign = TextAlign.Start,
-                fontSize = 11.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .height(39.dp),
-                color = MaterialTheme.colorScheme.onSurface,
-                fontWeight = FontWeight(300),
-                fontFamily = FontFamily(Font(R.font.inter_light))
-            )
-        }
-        // White circular background for the icon
-        Box(
-            modifier = Modifier
-                .size(24.dp)
-                .padding(4.dp)
-                .align(Alignment.TopEnd)
-                .border(0.1.dp, Color.Black, CircleShape)
-                .background(color = Color.White, shape = CircleShape)
-
-        )
-
-        // Check button in the top-right corner
-        if (isSelected) {
-            Icon(
-                imageVector = Icons.Rounded.Check,
-                contentDescription = null,
-                tint = Color(0xFF00B99F),
-                modifier = Modifier
-                    .size(24.dp)
-                    .padding(4.dp)
-                    .align(Alignment.TopEnd)
-                    .background(color = Color.White, shape = CircleShape)
-                    .alpha(checkIconAlpha)
-            )
-
-        }
-
-
-    }
-}
 
 @Composable
 fun NextButton() {
@@ -391,37 +250,27 @@ fun NextButton() {
 }
 
 @Composable
-fun TitlesAndSubTitles(dimensions: Dimensions) {
+fun SellFrame3Titles(dimensions: Dimensions) {
 
-    Text(
+
+    ReusableText(
         text = "Select type",
-        textAlign = TextAlign.Center,
-        fontSize = 24.sp,
-        modifier = Modifier
-            .fillMaxWidth() //Take the full available width
-            .wrapContentHeight(),// Wrap the content for height
-        color = MaterialTheme.colorScheme.secondary,
+        fontSize = 24,
         fontWeight = FontWeight(700),
         fontFamily = FontFamily(Font(R.font.inter_bold)),
     )
 
     Spacer(modifier = Modifier.height(dimensions.smallMedium))
 
-    Text(
-        text = " What do you want to sell? ",
-        textAlign = TextAlign.Center,
-        fontSize = 18.sp,
-        overflow = TextOverflow.Ellipsis,
-        modifier = Modifier
-            .fillMaxWidth() //Take the full available width
-            .wrapContentHeight(),// Wrap the content for height
-        color = MaterialTheme.colorScheme.secondary,
+    ReusableText(
+        text = "What do you want to sell?",
+        fontSize = 18,
         fontWeight = FontWeight(300),
         fontFamily = FontFamily(Font(R.font.inter_light)),
     )
+
+
 }
-
-
 
 
 @Preview(showBackground = true)

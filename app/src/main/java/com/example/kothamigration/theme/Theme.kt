@@ -25,48 +25,32 @@ import com.example.kothamigration.utils.Orientation
 
 
 private val LightColorPalette = lightColorScheme(
+
     primary = KothaGreen, // Green Apps Iconic Color
-
-
     onPrimary = Black2,  // REGULAR BLACK
     secondary = HeadingTextColor,// Heading Text Color
     onSecondary = Color.Black,
-
     error = RedErrorLight,
-
     background = White,// BackGround Color
     onBackground = Color.Black, // BackGround Color Text
-
-
     surface = Color.White,//TopAppBar Color
     onSurface = Black2,//TopAppBar Color Text
-
-
     tertiary= ResendButtonColor,
-
     outline = BoxBrder, //BoxBorder Color
-
     scrim = HintColorLight //Hint Text Color
 )
 private val DarkColorPalette = darkColorScheme(
     primary = KothaGreen,  // Green Apps Iconic Color
-
-
     onPrimary = Color.White,  // REGULAR WHITE
     secondary = Color.White,// Heading Text Color
     onSecondary = Color.White,
-
     error = RedErrorDark,
-
     background = Color.Black, // Black BackGround
     onBackground = Color.White,
-
     surface = Color.Black, //TopAppBar Color
     onSurface = Color.White, //TopAppBar Color Text
-
     outline = BoxBrder, //BoxBorder Color
     scrim = HintColorDark, // Hint Text Color
-
     tertiary= ResendButtonColorDark,
 
 

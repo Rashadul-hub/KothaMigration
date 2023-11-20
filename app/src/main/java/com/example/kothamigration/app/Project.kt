@@ -19,9 +19,11 @@ import com.example.kothamigration.loginscreen.LanguageSelectionScreen
 import com.example.kothamigration.loginscreen.LoginScreen
 import com.example.kothamigration.loginscreen.OtpScreen
 import com.example.kothamigration.loginscreen.TermsAndConditionScreen
+import com.example.kothamigration.model.OnBoardingContent
 import com.example.kothamigration.model.rememberWindowSizeClass
 import com.example.kothamigration.profilescreen.ProfileSetUpScreen
 import com.example.kothamigration.sellonboarding.Demo2
+import com.example.kothamigration.sellonboarding.SellFrame1
 import com.example.kothamigration.sellonboarding.SellFrame2
 import com.example.kothamigration.sellonboarding.SellFrame3
 import com.example.kothamigration.theme.KothaTheme
@@ -29,6 +31,7 @@ import com.example.kothamigration.theme.KothaTheme
 /**This File Contains All The Screens**/
 
 var darkMode by mutableStateOf(false) //For// Switching Theme Dark -> Light Mode
+
 
 @Composable
 fun ProjectApp() {
@@ -43,7 +46,7 @@ fun ProjectApp() {
             
 
             NavHost(navController = navController, startDestination = "sell") {
-
+/**
                 composable("language") {
                     LanguageSelectionScreen(navController = navController)
                 }
@@ -67,10 +70,14 @@ fun ProjectApp() {
                     BottomNavigationBar()
                 }
                 composable("mode") {
-                    SwitchModeScreen(navController = navController)
+                   // SwitchModeScreen(navController = navController)
                 }
+*/
+
+
+
                 composable("sell"){
-                    SellFrame2()
+                    OnBoardingContent()
                 }
             }
 

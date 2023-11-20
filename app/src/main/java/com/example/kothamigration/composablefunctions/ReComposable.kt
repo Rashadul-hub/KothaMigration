@@ -1,13 +1,17 @@
 package com.example.kothamigration.composablefunctions
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,22 +19,31 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
+import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -43,6 +56,33 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kothamigration.R
+import com.example.kothamigration.app.darkMode
+import com.example.kothamigration.utils.TextBoxStatus
+
+
+
+
+///Switch Theme Mode
+@Composable
+fun ThemeSwitch() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp), contentAlignment = Alignment.TopCenter
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = "DarkMode", fontSize = 30.sp)
+            Spacer(modifier = Modifier.padding(16.dp))
+            Switch(checked = darkMode, onCheckedChange = { darkMode = !darkMode })
+        }
+
+    }
+}
+
+
+
 
 //Custom KothaApp Button
 @Composable
@@ -93,7 +133,7 @@ fun ReusableText(
     modifier: Modifier = Modifier
         .fillMaxWidth() //Take the full available width
         .wrapContentHeight(),// Wrap the content for height
-    color: Color = MaterialTheme.colorScheme.secondary,
+   color: Color = MaterialTheme.colorScheme.secondary,
     textAlign: TextAlign = TextAlign.Center,
     overflow: TextOverflow = TextOverflow.Ellipsis,
 ) {
@@ -203,6 +243,7 @@ fun PhoneNumberInputBox(
 }
 
 
+// Seller Description Text Box For SellFrame 2
 @Composable
 fun LongTextBox(
     value: String,
@@ -296,3 +337,130 @@ fun LongTextBox(
         }
     }
 }
+
+
+// Select Options For SellFrame 3
+@Composable
+fun ChoicesRow(
+    choices: List<Choice>,
+    selectedItem: String?,
+    onItemSelected: (String) -> Unit
+) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(9.dp),
+    ) {
+        items(choices) { choice ->
+            ChoiceItem(
+                title = choice.title,
+                subtitle = choice.subtitle,
+                isSelected = selectedItem == choice.title,
+                onItemClick = { onItemSelected(choice.title) }
+            )
+        }
+    }
+}
+// Choice Items -> SellFrame 3
+@Composable
+fun ChoiceItem(
+    title: String,
+    subtitle: String,
+    isSelected: Boolean,
+    onItemClick: () -> Unit
+) {
+    val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+    val backgroundColor = if (title == "Image") {
+        if (isSelected) {
+            Color(0xFF24DDBD) //Color
+        } else {
+            Color.White //Color
+        }
+    } else if (isSelected) {
+        Color(0xFF24DDBD) //Color
+    } else {
+        Color(0x1F1D1B20)  //Color
+    }
+    val checkIconAlpha = if (isSelected) 1f else 0f
+
+    val itemWidth = if (isLandscape) {
+        250.dp // Adjust the width for landscape mode
+    } else {
+        165.dp // Default width for portrait mode
+    }
+
+    Box(
+        modifier = Modifier
+            .width(itemWidth)
+            .height(100.dp)
+            .border(0.1.dp, color = Color(0x2D1D1B20), shape = RoundedCornerShape(2.dp)) //Color
+            .background(color = backgroundColor, shape = RoundedCornerShape(2.dp)) //Color
+            .padding(8.dp)
+            .clickable(onClick = onItemClick),
+
+        ) {
+        Column(
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            Text(
+                text = title,
+                textAlign = TextAlign.Start,
+                fontSize = 18.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                color = MaterialTheme.colorScheme.onSurface, //Color
+                fontWeight = FontWeight(500),
+                fontFamily = FontFamily(Font(R.font.inter_medium)) //Fonts
+            )
+
+            Text(
+                text = subtitle,
+                textAlign = TextAlign.Start,
+                fontSize = 11.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .height(39.dp),
+                color = MaterialTheme.colorScheme.onSurface, //Color
+                fontWeight = FontWeight(300),
+                fontFamily = FontFamily(Font(R.font.inter_light)) //Fonts
+            )
+        }
+        // White circular background for the icon
+        Box(
+            modifier = Modifier
+                .size(24.dp)
+                .padding(4.dp)
+                .align(Alignment.TopEnd)
+                .border(0.1.dp, Color.Black, CircleShape) //Color
+                .background(color = Color.White, shape = CircleShape) //Color
+
+        )
+
+        // Check button in the top-right corner
+        if (isSelected) {
+            Icon(
+                imageVector = Icons.Rounded.Check,
+                contentDescription = null,
+                tint = Color(0xFF00B99F), //Color
+                modifier = Modifier
+                    .size(24.dp)
+                    .padding(4.dp)
+                    .align(Alignment.TopEnd)
+                    .background(color = Color.White, shape = CircleShape) //Color
+                    .alpha(checkIconAlpha)
+            )
+
+        }
+    }
+}
+
+// Data Class For Choice -> SellFrame 3
+data class Choice(val title: String, val subtitle: String)
+
+
+
+

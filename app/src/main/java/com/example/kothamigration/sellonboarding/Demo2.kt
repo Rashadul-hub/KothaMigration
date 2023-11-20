@@ -28,6 +28,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -59,6 +63,7 @@ import com.example.kothamigration.model.largeDimensions
 import com.example.kothamigration.model.mediumDimensions
 import com.example.kothamigration.model.rememberWindowSizeClass
 import com.example.kothamigration.model.smallDimensions
+import com.example.kothamigration.utils.TextBoxStatus
 
 @Composable
 fun Demo2() {
@@ -144,11 +149,12 @@ fun Contents(dimensions: Dimensions) {
     ) {
 
         // Gird View Selection
-        VideoCaption()
 
+        //VideoCaption()
+     //   UsableTextBox()
         Spacer(modifier = Modifier.weight(0.1f))
 
-        Choices()
+       // Choices()
 
         SelectionTitles(dimensions)
 
@@ -176,6 +182,7 @@ fun Contents(dimensions: Dimensions) {
 
 }
 
+/**
 @Composable
 fun Choices() {
 
@@ -516,6 +523,20 @@ fun VideoCaption() {
     }
 
 }
+*/
+
+//@Composable
+//fun UsableTextBox() {
+//    var text by remember { mutableStateOf("Hello") }
+//
+//    CustomTextBox(
+//        text = text,
+//        onTextChange = { text = it },
+//        status = TextBoxStatus.Disabled,
+//        isDarkMode = false
+//    )
+//
+//}
 
 
 @Composable

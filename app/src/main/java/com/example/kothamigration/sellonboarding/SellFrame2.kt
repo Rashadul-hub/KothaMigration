@@ -39,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.example.kothamigration.R
 import com.example.kothamigration.composablefunctions.CustomButton
 import com.example.kothamigration.composablefunctions.LongTextBox
@@ -51,9 +52,12 @@ import com.example.kothamigration.model.largeDimensions
 import com.example.kothamigration.model.mediumDimensions
 import com.example.kothamigration.model.rememberWindowSizeClass
 import com.example.kothamigration.model.smallDimensions
+import com.example.kothamigration.utils.TextBoxStatus
 
 @Composable
-fun SellFrame2() {
+fun SellFrame2(
+    onNextClicked : () -> Unit
+) {
     val windowSize = rememberWindowSizeClass()
     val dimensions = when (windowSize.width) {
         is WindowSize.Small -> smallDimensions
@@ -104,7 +108,7 @@ fun SellFrame2() {
                             .background(color = MaterialTheme.colorScheme.background) //White BackGround Landscape Mode
                     ) {
                         // Body Section
-                        SellFrame2Contents(dimensions)
+                        SellFrame2Contents(dimensions,onNextClicked)
                     }
                 }
             }
@@ -118,7 +122,7 @@ fun SellFrame2() {
             ) {
 
                 // Body Section
-                SellFrame2Contents(dimensions)
+                SellFrame2Contents(dimensions,onNextClicked)
             }
         }
     }
@@ -126,7 +130,7 @@ fun SellFrame2() {
 }
 
 @Composable
-fun SellFrame2Contents(dimensions: Dimensions) {
+fun SellFrame2Contents(dimensions: Dimensions,onNextClicked: () -> Unit) {
 
     Column(
         modifier = Modifier
@@ -168,7 +172,7 @@ fun SellFrame2Contents(dimensions: Dimensions) {
 
         Spacer(modifier = Modifier.height(dimensions.smallMedium))
 
-        SellFrameButton()
+        SellFrameButton(onNextClicked)
 
         Spacer(modifier = Modifier.height(dimensions.mediumLarge))
 
@@ -239,8 +243,9 @@ fun SellerDescription() {
         maxLines = 10
     )
 }
+
 @Composable
-fun SellFrameButton() {
+fun SellFrameButton(onNextClicked: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -252,6 +257,7 @@ fun SellFrameButton() {
             modifier = Modifier.fillMaxWidth()
         ) {
             CustomButton(buttonText = "Next") {
+                onNextClicked()
 
             }
         }
@@ -260,33 +266,7 @@ fun SellFrameButton() {
 
 @Composable
 fun TitleContents(dimensions: Dimensions) {
-//
-//    Text(
-//        text = "Register as seller",
-//        textAlign = TextAlign.Center,
-//        fontSize = 24.sp,
-//        modifier = Modifier
-//            .fillMaxWidth() //Take the full available width
-//            .wrapContentHeight(),// Wrap the content for height
-//        color = MaterialTheme.colorScheme.secondary,
-//        fontWeight = FontWeight(700),
-//        fontFamily = FontFamily(Font(R.font.inter_bold)),
-//    )
-//
-//    Spacer(modifier = Modifier.height(dimensions.smallMedium))
-//
-//    Text(
-//        text = " A bKash number is required. ",
-//        textAlign = TextAlign.Center,
-//        fontSize = 18.sp,
-//        overflow = TextOverflow.Ellipsis,
-//        modifier = Modifier
-//            .fillMaxWidth() //Take the full available width
-//            .wrapContentHeight(),// Wrap the content for height
-//        color = MaterialTheme.colorScheme.secondary,
-//        fontWeight = FontWeight(300),
-//        fontFamily = FontFamily(Font(R.font.inter_light)),
-//    )
+
     ReusableText(
         text = "Register as seller",
         fontSize = 24,
@@ -308,5 +288,5 @@ fun TitleContents(dimensions: Dimensions) {
 @Preview(showBackground = true)
 @Composable
 fun SellFrameView2() {
-    SellFrame2()
+//    SellFrame2()
 }

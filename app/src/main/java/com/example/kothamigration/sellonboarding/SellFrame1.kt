@@ -37,9 +37,10 @@ import com.example.kothamigration.model.largeDimensions
 import com.example.kothamigration.model.mediumDimensions
 import com.example.kothamigration.model.rememberWindowSizeClass
 import com.example.kothamigration.model.smallDimensions
+import com.example.kothamigration.theme.KothaGreen
 
 @Composable
-fun SellFrame1() {
+fun SellFrame1(onNextClicked: () -> Unit) {
     val windowSize = rememberWindowSizeClass()
     val dimensions = when (windowSize.width) {
         is WindowSize.Small -> smallDimensions
@@ -67,7 +68,7 @@ fun SellFrame1() {
                             .background(color = MaterialTheme.colorScheme.background) //White BackGround Landscape Mode
                     ) {
                         // Body Section
-                        SellFrame1Contents(dimensions)
+                        SellFrame1Contents(dimensions,onNextClicked)
                     }
                 }
             }
@@ -81,7 +82,7 @@ fun SellFrame1() {
             ) {
 
                 // Body Section
-                SellFrame1Contents(dimensions)
+                SellFrame1Contents(dimensions,onNextClicked)
             }
         }
     }
@@ -89,7 +90,7 @@ fun SellFrame1() {
 }
 
 @Composable
-fun SellFrame1Contents(dimensions: Dimensions) {
+fun SellFrame1Contents(dimensions: Dimensions,onNextClicked: () -> Unit) {
 
     Column(
         modifier = Modifier
@@ -131,7 +132,7 @@ fun SellFrame1Contents(dimensions: Dimensions) {
 
         Spacer(modifier = Modifier.height(dimensions.small))
 
-        GetStartedButton()
+        GetStartedButton(onNextClicked)
 
         Spacer(modifier = Modifier.height(dimensions.mediumLarge))
 
@@ -143,7 +144,8 @@ fun SellFrame1Contents(dimensions: Dimensions) {
 }
 
 @Composable
-fun GetStartedButton() {
+fun GetStartedButton(onNextClicked: () -> Unit) {
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -155,6 +157,7 @@ fun GetStartedButton() {
             modifier = Modifier.fillMaxWidth()
         ) {
             CustomButton(buttonText = "Get Started") {
+                    onNextClicked()
 
             }
         }
@@ -164,32 +167,6 @@ fun GetStartedButton() {
 @Composable
 fun TextContents(dimensions: Dimensions) {
 
-//    Text(
-//        text = "Earn",
-//        textAlign = TextAlign.Center,
-//        fontSize = 24.sp,
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .wrapContentHeight(),
-//        color = MaterialTheme.colorScheme.secondary,
-//        fontWeight = FontWeight(700),
-//        fontFamily = FontFamily(Font(R.font.inter_bold)),
-//    )
-//
-//    Spacer(modifier = Modifier.height(dimensions.smallMedium))
-//
-//    Text(
-//        text = "Start earning by selling your digital contents or skills. ",
-//        textAlign = TextAlign.Center,
-//        fontSize = 18.sp,
-//        overflow = TextOverflow.Ellipsis,
-//        modifier = Modifier
-//            .fillMaxWidth() //Take the full available width
-//            .wrapContentHeight(),// Wrap the content for height
-//        color = MaterialTheme.colorScheme.secondary,
-//        fontWeight = FontWeight(300),
-//        fontFamily = FontFamily(Font(R.font.inter_light)),
-//    )
     ReusableText(
         text = "Earn",
         fontSize = 24,
@@ -214,5 +191,5 @@ fun TextContents(dimensions: Dimensions) {
 @Preview
 @Composable
 fun SellFrameView() {
-    SellFrame1()
+//    SellFrame1(onNextClicked)
 }

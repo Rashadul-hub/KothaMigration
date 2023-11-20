@@ -11,21 +11,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.kothamigration.SwitchModeScreen
-import com.example.kothamigration.composablefunctions.AlertDialog
-import com.example.kothamigration.homescreen.BottomNavigationBar
-import com.example.kothamigration.homescreen.FeedScreen
-import com.example.kothamigration.loginscreen.LanguageSelectionScreen
-import com.example.kothamigration.loginscreen.LoginScreen
-import com.example.kothamigration.loginscreen.OtpScreen
-import com.example.kothamigration.loginscreen.TermsAndConditionScreen
 import com.example.kothamigration.model.OnBoardingContent
 import com.example.kothamigration.model.rememberWindowSizeClass
-import com.example.kothamigration.profilescreen.ProfileSetUpScreen
-import com.example.kothamigration.sellonboarding.Demo2
-import com.example.kothamigration.sellonboarding.SellFrame1
-import com.example.kothamigration.sellonboarding.SellFrame2
-import com.example.kothamigration.sellonboarding.SellFrame3
 import com.example.kothamigration.theme.KothaTheme
 
 /**This File Contains All The Screens**/

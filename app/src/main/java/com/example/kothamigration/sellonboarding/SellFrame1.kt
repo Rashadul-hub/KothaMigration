@@ -38,6 +38,8 @@ import com.example.kothamigration.model.mediumDimensions
 import com.example.kothamigration.model.rememberWindowSizeClass
 import com.example.kothamigration.model.smallDimensions
 import com.example.kothamigration.theme.KothaGreen
+import com.example.kothamigration.theme.TextStyleVariables
+
 
 @Composable
 fun SellFrame1(onNextClicked: () -> Unit) {
@@ -169,18 +171,14 @@ fun TextContents(dimensions: Dimensions) {
 
     ReusableText(
         text = "Earn",
-        fontSize = 24,
-        fontWeight = FontWeight(700),
-        fontFamily = FontFamily(Font(R.font.inter_bold)),
+        style = TextStyleVariables.TitleStyle,
     )
 
     Spacer(modifier = Modifier.height(dimensions.smallMedium))
 
     ReusableText(
         text = "Start earning by selling your digital contents or skills.",
-        fontSize = 18,
-        fontWeight = FontWeight(300),
-        fontFamily = FontFamily(Font(R.font.inter_light)),
+        style = TextStyleVariables.SubtitleStyle
     )
 
 
@@ -190,6 +188,8 @@ fun TextContents(dimensions: Dimensions) {
 
 @Preview
 @Composable
-fun SellFrameView() {
-//    SellFrame1(onNextClicked)
+fun SellFrameStartingDefaultScreen() {
+    SellFrame1 {
+
+    }
 }

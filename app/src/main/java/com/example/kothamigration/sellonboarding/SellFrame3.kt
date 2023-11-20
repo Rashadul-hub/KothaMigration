@@ -1,10 +1,7 @@
 package com.example.kothamigration.sellonboarding
 
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,22 +12,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Scaffold
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,20 +28,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.TopCenter
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.kothamigration.R
-import com.example.kothamigration.composablefunctions.Choice
 import com.example.kothamigration.composablefunctions.ChoicesRow
 import com.example.kothamigration.composablefunctions.CustomButton
 import com.example.kothamigration.composablefunctions.ReusableText
@@ -64,9 +43,12 @@ import com.example.kothamigration.model.largeDimensions
 import com.example.kothamigration.model.mediumDimensions
 import com.example.kothamigration.model.rememberWindowSizeClass
 import com.example.kothamigration.model.smallDimensions
+import com.example.kothamigration.theme.TextStyleVariables
+import com.example.kothamigration.utils.Choice
 
 @Composable
-fun SellFrame3() {
+fun SellFrame3( onNextClicked: () -> Unit
+) {
     val windowSize = rememberWindowSizeClass()
     val dimensions = when (windowSize.width) {
         is WindowSize.Small -> smallDimensions
@@ -117,7 +99,7 @@ fun SellFrame3() {
                             .background(color = MaterialTheme.colorScheme.background) //White BackGround Landscape Mode
                     ) {
                         // Body Section
-                        SellFrame3Contents(dimensions)
+                        SellFrame3Contents(dimensions,onNextClicked)
                     }
                 }
             }
@@ -131,7 +113,7 @@ fun SellFrame3() {
             ) {
 
                 // Body Section
-                SellFrame3Contents(dimensions)
+                SellFrame3Contents(dimensions,onNextClicked)
             }
         }
     }
@@ -139,7 +121,10 @@ fun SellFrame3() {
 }
 
 @Composable
-fun SellFrame3Contents(dimensions: Dimensions) {
+fun SellFrame3Contents(
+    dimensions: Dimensions,
+    onNextClicked: () -> Unit,
+) {
 
     Column(
         modifier = Modifier
@@ -149,9 +134,7 @@ fun SellFrame3Contents(dimensions: Dimensions) {
     ) {
 
         // Gird View Selection
-        ChoicesView()
-
-
+        ChoicesView( )
 
         Spacer(modifier = Modifier.weight(0.1f))
 
@@ -171,7 +154,7 @@ fun SellFrame3Contents(dimensions: Dimensions) {
 
         Spacer(modifier = Modifier.height(dimensions.smallMedium))
 
-        NextButton()
+        NextButton(onNextClicked)
 
         Spacer(modifier = Modifier.height(dimensions.mediumLarge))
 
@@ -231,7 +214,7 @@ fun ChoicesView() {
 
 
 @Composable
-fun NextButton() {
+fun NextButton(onNextClicked: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -243,6 +226,7 @@ fun NextButton() {
             modifier = Modifier.fillMaxWidth()
         ) {
             CustomButton(buttonText = "Next") {
+                onNextClicked()
 
             }
         }
@@ -255,18 +239,16 @@ fun SellFrame3Titles(dimensions: Dimensions) {
 
     ReusableText(
         text = "Select type",
-        fontSize = 24,
-        fontWeight = FontWeight(700),
-        fontFamily = FontFamily(Font(R.font.inter_bold)),
+        style = TextStyleVariables.TitleStyle
+
     )
 
     Spacer(modifier = Modifier.height(dimensions.smallMedium))
 
     ReusableText(
         text = "What do you want to sell?",
-        fontSize = 18,
-        fontWeight = FontWeight(300),
-        fontFamily = FontFamily(Font(R.font.inter_light)),
+        style = TextStyleVariables.SubtitleStyle
+
     )
 
 
@@ -276,5 +258,9 @@ fun SellFrame3Titles(dimensions: Dimensions) {
 @Preview(showBackground = true)
 @Composable
 fun SellFrameView3() {
-    SellFrame3()
+
+    //SellFrame3() {
+
+
+   // }
 }

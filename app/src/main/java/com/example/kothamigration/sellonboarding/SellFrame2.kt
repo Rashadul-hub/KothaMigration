@@ -1,12 +1,9 @@
 package com.example.kothamigration.sellonboarding
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.IconButton
@@ -23,7 +19,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,17 +28,11 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.example.kothamigration.R
 import com.example.kothamigration.composablefunctions.CustomButton
-import com.example.kothamigration.composablefunctions.LongTextBox
-import com.example.kothamigration.composablefunctions.PhoneNumberInputBox
+import com.example.kothamigration.composablefunctions.CustomInputBox
 import com.example.kothamigration.composablefunctions.ReusableText
 import com.example.kothamigration.model.Dimensions
 import com.example.kothamigration.model.WindowSize
@@ -52,11 +41,12 @@ import com.example.kothamigration.model.largeDimensions
 import com.example.kothamigration.model.mediumDimensions
 import com.example.kothamigration.model.rememberWindowSizeClass
 import com.example.kothamigration.model.smallDimensions
-import com.example.kothamigration.utils.TextBoxStatus
+import com.example.kothamigration.theme.TextStyleVariables
+import com.example.kothamigration.utils.TextInputType
 
 @Composable
 fun SellFrame2(
-    onNextClicked : () -> Unit
+    onNextClicked: () -> Unit,
 ) {
     val windowSize = rememberWindowSizeClass()
     val dimensions = when (windowSize.width) {
@@ -108,7 +98,7 @@ fun SellFrame2(
                             .background(color = MaterialTheme.colorScheme.background) //White BackGround Landscape Mode
                     ) {
                         // Body Section
-                        SellFrame2Contents(dimensions,onNextClicked)
+                        SellFrame2Contents(dimensions, onNextClicked)
                     }
                 }
             }
@@ -122,7 +112,7 @@ fun SellFrame2(
             ) {
 
                 // Body Section
-                SellFrame2Contents(dimensions,onNextClicked)
+                SellFrame2Contents(dimensions, onNextClicked)
             }
         }
     }
@@ -130,7 +120,7 @@ fun SellFrame2(
 }
 
 @Composable
-fun SellFrame2Contents(dimensions: Dimensions,onNextClicked: () -> Unit) {
+fun SellFrame2Contents(dimensions: Dimensions, onNextClicked: () -> Unit) {
 
     Column(
         modifier = Modifier
@@ -140,21 +130,22 @@ fun SellFrame2Contents(dimensions: Dimensions,onNextClicked: () -> Unit) {
     ) {
 
         // Input bKash Number Section
-        bKashNumberBox()
+        Input_bKashNumber()
 
 
         // Reconfirm Number
-        Re_confirmNumber()
+        NumberVariation()
 
         //Seller Description Box
 
         SellerDescription()
 
         Spacer(modifier = Modifier.weight(0.1f))
-//        Spacer(modifier = Modifier.weight(1f))
         Spacer(modifier = Modifier.height(dimensions.small))
         Spacer(modifier = Modifier.height(dimensions.small))
 
+
+        //Title & Subtitle
         TitleContents(dimensions)
 
 
@@ -172,6 +163,7 @@ fun SellFrame2Contents(dimensions: Dimensions,onNextClicked: () -> Unit) {
 
         Spacer(modifier = Modifier.height(dimensions.smallMedium))
 
+        //Next Button
         SellFrameButton(onNextClicked)
 
         Spacer(modifier = Modifier.height(dimensions.mediumLarge))
@@ -181,66 +173,50 @@ fun SellFrame2Contents(dimensions: Dimensions,onNextClicked: () -> Unit) {
 
 }
 
+
 @Composable
-fun bKashNumberBox() {
+fun Input_bKashNumber() {
     var phoneNumber by remember { mutableStateOf("") }
 
-    PhoneNumberInputBox(
+    CustomInputBox(
         label = "bKash Number",
-        phoneNumber = phoneNumber,
-        onPhoneNumberChange = { phoneNumber = it },
-        borderColor = MaterialTheme.colorScheme.outline,
+        value = phoneNumber,
+        onValueChange = { phoneNumber = it },
         isClearable = true,
         onClearClick = { phoneNumber = "" },
         leadingIcon = R.drawable.mobile_icon,
-
-
-        )
+        textInputType = TextInputType.Number,
+    )
 }
 
+
 @Composable
-fun Re_confirmNumber() {
-    var phoneNumber by remember { mutableStateOf("") }
-    val isTextFieldEmpty by remember(phoneNumber) { derivedStateOf { phoneNumber.isEmpty() } }
+fun NumberVariation() {
+    var text by remember { mutableStateOf("") }
 
-    // Interaction source to track interactions with the TextField
-    val interactionSource = remember { MutableInteractionSource() }
-    // Remember the updated interaction state
-    val borderColor by interactionSource.collectIsPressedAsState()
-
-    PhoneNumberInputBox(
+    CustomInputBox(
         label = "Reconfirm bKash Number",
-        phoneNumber = phoneNumber,
-        onPhoneNumberChange = { phoneNumber = it },
-        borderColor = if (borderColor) Color(0xFF00B99F) else MaterialTheme.colorScheme.outline,
-        isClearable = !isTextFieldEmpty,
-        onClearClick = { phoneNumber = "" },
-        leadingIcon = R.drawable.cancel_wizard,// Use clear icon for Re_confirmNumber
-        isLeadingIconStart = false // Set to false to move the icon to the right
+        value = text,
+        onValueChange = { text = it },
+        trailingIcon = R.drawable.cancel_wizard,
+        isLeadingIconStart = false,
+        isClearable = true,
+        onClearClick = { text = "" },
+        textInputType = TextInputType.Number,
     )
 }
 
 
 @Composable
 fun SellerDescription() {
-    var strings by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf("") }
 
-    // Interaction source to track interactions with the TextField
-    val interactionSource = remember { MutableInteractionSource() }
-
-    // Remember the updated interaction state
-    val borderColor by interactionSource.collectIsPressedAsState()
-
-    LongTextBox(
-        value = strings,
-        onValueChange = { strings = it },
-        label = "Seller Description",
-        isError = strings.length > 40,
-        errorText = "The text is too long. Please, make it short.Please, make it short.Please, make it short.Please, make it short.",
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
-        maxLines = 10
+    CustomInputBox(
+        label = "Reconfirm bKash Number",
+        value = text,
+        onValueChange = { text = it },
+        onClearClick = { text = "" },
+        textInputType = TextInputType.LongText,
     )
 }
 
@@ -269,18 +245,16 @@ fun TitleContents(dimensions: Dimensions) {
 
     ReusableText(
         text = "Register as seller",
-        fontSize = 24,
-        fontWeight = FontWeight(700),
-        fontFamily = FontFamily(Font(R.font.inter_bold)),
+        style = TextStyleVariables.TitleStyle
+
     )
 
     Spacer(modifier = Modifier.height(dimensions.smallMedium))
 
     ReusableText(
         text = "A bKash number is required.",
-        fontSize = 18,
-        fontWeight = FontWeight(300),
-        fontFamily = FontFamily(Font(R.font.inter_light)),
+        style = TextStyleVariables.SubtitleStyle
+
     )
 }
 
@@ -288,5 +262,7 @@ fun TitleContents(dimensions: Dimensions) {
 @Preview(showBackground = true)
 @Composable
 fun SellFrameView2() {
-//    SellFrame2()
+    SellFrame2 {
+
+    }
 }

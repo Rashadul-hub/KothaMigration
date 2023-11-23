@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,16 +26,16 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Checkbox
 import androidx.compose.material.IconButton
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -59,12 +58,16 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.example.kothamigration.R
 import com.example.kothamigration.app.darkMode
 import com.example.kothamigration.theme.TextStyleVariables
+import com.example.kothamigration.theme.TextStyleVariables.NumberInputStyle
+import com.example.kothamigration.theme.TextStyleVariables.TextBoxInputStyle
+import com.example.kothamigration.theme.TextStyleVariables.Text_Input_Longbox
 import com.example.kothamigration.utils.Choice
 import com.example.kothamigration.utils.FileUploadStatus
 import com.example.kothamigration.utils.TextInputType
@@ -90,14 +93,14 @@ fun ThemeSwitch() {
 }
 
 
-
-
 //Custom KothaApp Button
 @Composable
 fun CustomButton(
     buttonText: String,
-    onClick: () -> Unit,
-) {
+    onClick: () -> Unit = {},
+
+
+    ) {
     androidx.compose.material3.Button(
         onClick = onClick,
         modifier = Modifier
@@ -125,8 +128,64 @@ fun CustomButton(
     }
 }
 
+@Composable
+fun ButtonShort(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    OutlinedButton(
+        onClick = { onClick() },
+        shape = RoundedCornerShape(topStart = 6.dp, topEnd = 16.dp, bottomStart = 16.dp, bottomEnd = 16.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 10.dp),
+        border = BorderStroke(0.2.dp, Color(0xFFB7B7B7)),//Color
+        modifier = modifier
+            .requiredWidth(width = 81.dp)
+            .requiredHeight(height = 40.dp)
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .requiredWidth(width = 81.dp)
+                .requiredHeight(height = 40.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .requiredHeight(height = 40.dp)
+                    .background(color = Color(0xff24ddbd))
+            ) {
+                Text(
+                    text = text,
+                    fontSize=14.sp,
+                    color = Color.Black, //Color
+                    textAlign = TextAlign.Center,
+                    lineHeight = 1.43.em,
+                    letterSpacing = 0.1.sp,
+                    fontWeight = FontWeight(500),
+                    fontFamily = FontFamily(Font(R.font.inter_medium)),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(align = Alignment.CenterVertically)
+                )
+            }
+        }
+    }
+}
 
 
+@Preview(showSystemUi = true)
+@Composable
+private fun ButtonShortPreview() {
+
+}
+
+
+/** Text Field with Variations**/
 @Composable
 fun ReusableText(
     text: String,
@@ -156,20 +215,21 @@ fun ReusableText(
 }
 
 
-
-
 /** For Select an Types for Sell**/
 @Composable
 fun ChoicesRow(
     choices: List<Choice>,
     selectedItem: String?,
-    onItemSelected: (String) -> Unit
-) {
+    onItemSelected: (String) -> Unit,
+    style: TextStyle = TextStyle.Default,
+
+    ) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(9.dp),
     ) {
         items(choices) { choice ->
             ChoiceItem(
+                choice = choice,
                 title = choice.title,
                 subtitle = choice.subtitle,
                 isSelected = selectedItem == choice.title,
@@ -178,27 +238,30 @@ fun ChoicesRow(
         }
     }
 }
+
 // Choice Items -> SellFrame 3
 @Composable
 fun ChoiceItem(
+    choice: Choice,
     title: String,
     subtitle: String,
+    style: TextStyle = TextStyle.Default,
     isSelected: Boolean,
-    onItemClick: () -> Unit
+    onItemClick: () -> Unit,
 ) {
     val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
 
-    val backgroundColor = if (title == "Image") {
+    val backgroundColor = if (choice.isEnabled) {
         if (isSelected) {
-            Color(0xFF24DDBD) //Color
+            Color(0xFF24DDBD)
         } else {
             Color.White //Color
         }
-    } else if (isSelected) {
-        Color(0xFF24DDBD) //Color
     } else {
-        Color(0x1F1D1B20)  //Color
+        Color(0x1F1D1B20) //Color
     }
+
+
     val checkIconAlpha = if (isSelected) 1f else 0f
 
     val itemWidth = if (isLandscape) {
@@ -214,7 +277,7 @@ fun ChoiceItem(
             .border(0.1.dp, color = Color(0x2D1D1B20), shape = RoundedCornerShape(2.dp)) //Color
             .background(color = backgroundColor, shape = RoundedCornerShape(2.dp)) //Color
             .padding(8.dp)
-            .clickable(onClick = onItemClick),
+            .clickable(onClick = onItemClick, enabled = choice.isEnabled),
 
         ) {
         Column(
@@ -226,26 +289,22 @@ fun ChoiceItem(
             Text(
                 text = title,
                 textAlign = TextAlign.Start,
-                fontSize = 18.sp,
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 color = MaterialTheme.colorScheme.onSurface, //Color
-                fontWeight = FontWeight(500),
-                fontFamily = FontFamily(Font(R.font.inter_medium)) //Fonts
+                style = TextStyleVariables.BoxTitleStyle,
             )
 
             Text(
                 text = subtitle,
                 textAlign = TextAlign.Start,
-                fontSize = 11.sp,
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .height(39.dp),
                 color = MaterialTheme.colorScheme.onSurface, //Color
-                fontWeight = FontWeight(300),
-                fontFamily = FontFamily(Font(R.font.inter_light)) //Fonts
+                style = TextStyleVariables.BoxSubtitleStyle
             )
         }
         // White circular background for the icon
@@ -278,38 +337,38 @@ fun ChoiceItem(
 }
 
 
-
 /** Input Text Fields **/
 @Composable
 fun InputBox(
-    label: String,
+    caption: String,
     phoneNumber: String,
     onPhoneNumberChange: (String) -> Unit,
+
     isClearable: Boolean? = null,
     onClearClick: () -> Unit,
     leadingIcon: Int? = null,
     trailingIcon: Int? = null,
     isLeadingIconStart: Boolean = true,
+
     textInputType: TextInputType,
     modifier: Modifier = Modifier,
-) {
+    style: TextStyle = TextStyle.Default,
+
+
+    ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 10.dp)
             .padding(vertical = if (textInputType == TextInputType.SingleLineText || textInputType == TextInputType.LongText) 6.dp else 0.dp)
-
-//            .padding(vertical = 6.dp)
     ) {
         Text(
-            text = label,
-            fontSize = 11.62.sp,
+            text = caption,
             color = MaterialTheme.colorScheme.secondary,
-            fontFamily = FontFamily(Font(R.font.inter_medium)),
-            fontWeight = FontWeight(500),
-            letterSpacing = 0.4.sp,
             textAlign = TextAlign.Start,
-            modifier = Modifier.padding(start = 2.dp, top = 4.dp)
+            modifier = Modifier.padding(start = 2.dp, top = 4.dp),
+            style = TextStyleVariables.TextBoxTitleStyle
+
         )
 
         val textFieldModifier = if (textInputType == TextInputType.LongText) {
@@ -334,39 +393,10 @@ fun InputBox(
 
         // Set different text styles based on input type
         val textStyle = when (textInputType) {
-            TextInputType.SingleLineText -> TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight(400),
-                color = MaterialTheme.colorScheme.secondary,
-                textAlign = TextAlign.Start,
-                fontFamily = FontFamily(Font(R.font.inter_regular))
-            )
-            TextInputType.LongText -> TextStyle(
-                fontSize = 16.sp,
-                fontWeight = FontWeight(400),
-                color = MaterialTheme.colorScheme.secondary,
-                textAlign = TextAlign.Start,
-                fontFamily = FontFamily(Font(R.font.inter_regular))
-            )
-            TextInputType.Number, TextInputType.Money, TextInputType.Percentage -> TextStyle(
-                // Set your desired text style for these input types
-                fontSize = 18.sp,
-                fontWeight = FontWeight(400),
-                color = MaterialTheme.colorScheme.secondary,
-                textAlign = TextAlign.Start,
-                letterSpacing = 2.sp,
-                fontFamily = FontFamily(Font(R.font.inter_regular))
-            )
-
-            TextInputType.Slot -> TextStyle(
-                // Set your desired text style for Email input type
-                fontSize = 18.sp,
-                fontWeight = FontWeight(400),
-                color = MaterialTheme.colorScheme.secondary,
-                textAlign = TextAlign.Start,
-                letterSpacing = 2.sp,
-                fontFamily = FontFamily(Font(R.font.inter_regular))
-
+            TextInputType.SingleLineText -> TextBoxInputStyle.copy(MaterialTheme.colorScheme.secondary)
+            TextInputType.LongText -> Text_Input_Longbox.copy(MaterialTheme.colorScheme.secondary)
+            TextInputType.Slot, TextInputType.Number, TextInputType.Money, TextInputType.Percentage -> NumberInputStyle.copy(
+                MaterialTheme.colorScheme.secondary
             )
             // Set more your desired text style for Password input type
 
@@ -398,25 +428,23 @@ fun InputBox(
             textStyle = textStyle,
 
 
-
-
-
             leadingIcon = {
                 if (isLeadingIconStart && leadingIcon != null) {
                     if (isClearable == true) {
                         IconButton(onClick = { onClearClick() }) {
+
                             androidx.compose.material.Icon(
                                 painter = painterResource(id = leadingIcon),
-                                contentDescription = "Clear",
-                                tint = Color(0xFF000000),
+                                contentDescription = "leading Icon",
+                                tint = Color(0xFF000000), //Color For LeadingIcon
                                 modifier = Modifier.size(24.dp)
                             )
                         }
                     }
+                } else {
+                    Spacer(modifier = Modifier.width(0.dp))
                 }
             },
-
-
             trailingIcon = {
                 if (!isLeadingIconStart && trailingIcon != null) {
                     if (isClearable == true) {
@@ -429,8 +457,11 @@ fun InputBox(
                             )
                         }
                     }
+                } else {
+                    Spacer(modifier = Modifier.width(0.dp))
                 }
             },
+
             colors = outlineTextFieldColors
         )
     }
@@ -438,19 +469,23 @@ fun InputBox(
 
 @Composable
 fun CustomInputBox(
-    label: String,
+    caption: String,
     value: String,
     onValueChange: (String) -> Unit,
-    isClearable: Boolean? =null,
+    isClearable: Boolean? = null,
     onClearClick: () -> Unit,
     leadingIcon: Int? = null,
     trailingIcon: Int? = null,
     isLeadingIconStart: Boolean = true,
+
     textInputType: TextInputType,
     modifier: Modifier = Modifier,
+    style: TextStyle = TextStyle.Default,
 ) {
+
+
     InputBox(
-        label = label,
+        caption = caption,
         phoneNumber = value,
         onPhoneNumberChange = onValueChange,
         isClearable = isClearable,
@@ -459,8 +494,11 @@ fun CustomInputBox(
         trailingIcon = trailingIcon,
         isLeadingIconStart = isLeadingIconStart,
         textInputType = textInputType,
-        modifier = modifier
+        modifier = modifier,
+        style = style
     )
+
+
 }
 
 
@@ -505,6 +543,7 @@ fun getTextColor(status: FileUploadStatus): Color {
         else -> Color(0xff9e9e9e) // Default color
     }
 }
+
 @Composable
 fun FileUploadComponent(
     onClick: () -> Unit,
@@ -519,7 +558,8 @@ fun FileUploadComponent(
 
 
     // Dynamic color for caption based on status
-    val captionColor = if (status == FileUploadStatus.ERROR) Color(0xFFB3261E) else Color(0xff37474f)
+    val captionColor =
+        if (status == FileUploadStatus.ERROR) Color(0xFFB3261E) else Color(0xff37474f)
 
 
     Column(
@@ -599,7 +639,129 @@ fun SelectFilePanel(
 }
 
 
+/** Check Box**/
+@Composable
+fun CheckboxComponent(
+    text: String,
+    isChecked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+) {
 
+
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .fillMaxWidth() // Take full width
+            .padding(8.dp)    // Add padding
+    ) {
+
+        IconButton(
+            onClick = { },
+            modifier = Modifier
+                .clip(shape = RoundedCornerShape(16.dp)) // Adjust the corner radius
+                .background(color = Color(0xFFE6EEED)) //Circular Box Color
+                .size(38.dp) // Adjust the size
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(24.dp) // Adjust the inner box size
+            ) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .padding(4.dp) // Adjust the padding
+                ) {
+                    Checkbox(
+                        checked = isChecked,
+                        onCheckedChange = { onCheckedChange(it) },
+
+                        )
+                }
+            }
+        }
+
+        androidx.compose.material.Text(
+            text = text,
+            color = Color.Black,
+            style = TextStyleVariables.CopyrightTextStyle,// Adjust the font size
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(align = Alignment.CenterVertically)
+        )
+    }
+}
+
+/**Card View Details */
+@Composable
+fun CardViewComponent(
+    text: String? = null,
+    title: String,
+    linkText: String? = null,
+    linkColor: Color = Color(0xff00a98d),
+    onLinkClick: () -> Unit = {},
+    modifier: Modifier = Modifier,
+) {
+    val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+
+    val itemWidth = if (isLandscape) {
+        400.dp// Adjust the width for landscape mode
+    } else {
+        260.dp
+    }
+    Column(
+        verticalArrangement = Arrangement.spacedBy(6.dp, Alignment.Top),
+        modifier = modifier
+            .width(itemWidth)
+            .fillMaxWidth() // Make the column take the full width of its parent
+//            .background(color = Color.White)
+            .padding(horizontal = 12.dp, vertical = 6.dp)
+    ) {
+        androidx.compose.material.Text(
+            text = title,
+            color = Color(0xff37474f),
+            style = TextStyleVariables.TextBoxTitleStyle
+        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.Top),
+            modifier = Modifier
+                .fillMaxWidth() // Make the inner column take the full width
+                .padding(vertical = 5.dp)
+        ) {
+            if (text != null) {
+                androidx.compose.material.Text(
+                    text = text,
+                    color = Color(0xff6e6e6e),
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        fontFamily = FontFamily(Font(R.font.inter_regular)),
+                        fontWeight = FontWeight(400)
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight() // Adjust height as needed
+                )
+            }
+            if (linkText != null) {
+                androidx.compose.material.Text(
+                    text = linkText,
+                    color = linkColor,
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        fontFamily = FontFamily(Font(R.font.inter_regular)),
+                        fontWeight = FontWeight(400)
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight() // Adjust height as needed
+                        .clickable { onLinkClick() }
+                )
+            }
+        }
+    }
+}
 
 
 

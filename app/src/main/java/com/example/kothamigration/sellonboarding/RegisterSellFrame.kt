@@ -1,34 +1,38 @@
 package com.example.kothamigration.sellonboarding
 
-
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.IconButton
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Scaffold
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.kothamigration.R
 import com.example.kothamigration.composablefunctions.CustomButton
+import com.example.kothamigration.composablefunctions.CustomInputBox
 import com.example.kothamigration.composablefunctions.ReusableText
 import com.example.kothamigration.model.Dimensions
 import com.example.kothamigration.model.WindowSize
@@ -37,12 +41,13 @@ import com.example.kothamigration.model.largeDimensions
 import com.example.kothamigration.model.mediumDimensions
 import com.example.kothamigration.model.rememberWindowSizeClass
 import com.example.kothamigration.model.smallDimensions
-import com.example.kothamigration.theme.KothaGreen
 import com.example.kothamigration.theme.TextStyleVariables
-
+import com.example.kothamigration.utils.TextInputType
 
 @Composable
-fun SellFrame1(onNextClicked: () -> Unit) {
+fun SellFrame2(
+    onNextClicked: () -> Unit,
+) {
     val windowSize = rememberWindowSizeClass()
     val dimensions = when (windowSize.width) {
         is WindowSize.Small -> smallDimensions
@@ -56,7 +61,30 @@ fun SellFrame1(onNextClicked: () -> Unit) {
     val isLandscape = windowSize.width is WindowSize.Large
 
     Scaffold(
-        topBar = {},
+        topBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.background),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(
+                    onClick = {},
+                    modifier = Modifier.padding(end = 8.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.cancel_wizard),
+                        contentDescription = "Cancel",
+                        Modifier
+                            .size(24.dp)
+                    )
+                }
+            }
+
+        },
     ) { values ->
         // If in landscape mode, wrap the content in a scrollable LazyColumn
         if (isLandscape) {
@@ -70,7 +98,7 @@ fun SellFrame1(onNextClicked: () -> Unit) {
                             .background(color = MaterialTheme.colorScheme.background) //White BackGround Landscape Mode
                     ) {
                         // Body Section
-                        SellFrame1Contents(dimensions,onNextClicked)
+                        SellFrame2Contents(dimensions, onNextClicked)
                     }
                 }
             }
@@ -84,7 +112,7 @@ fun SellFrame1(onNextClicked: () -> Unit) {
             ) {
 
                 // Body Section
-                SellFrame1Contents(dimensions,onNextClicked)
+                SellFrame2Contents(dimensions, onNextClicked)
             }
         }
     }
@@ -92,7 +120,7 @@ fun SellFrame1(onNextClicked: () -> Unit) {
 }
 
 @Composable
-fun SellFrame1Contents(dimensions: Dimensions,onNextClicked: () -> Unit) {
+fun SellFrame2Contents(dimensions: Dimensions, onNextClicked: () -> Unit) {
 
     Column(
         modifier = Modifier
@@ -100,28 +128,29 @@ fun SellFrame1Contents(dimensions: Dimensions,onNextClicked: () -> Unit) {
             .padding(dimensions.medium) // Adjust padding based on window size
             .wrapContentSize(Alignment.Center)
     ) {
-        Spacer(modifier = Modifier.height(dimensions.large))
 
-        // Logo Section
-        Image(
-            painter = painterResource(id = R.drawable.ecommercecampaigncuate2),
-            contentDescription = "Ecommerce campaign-cuate 2",
-            modifier = Modifier
-                .align(CenterHorizontally)
-                .requiredSize(size = 300.dp)
-        )
+        // Input bKash Number Section
+        Input_bKashNumber()
+
+
+        // Reconfirm Number
+        NumberVariation()
+
+        //Seller Description Box
+
+        SellerDescription()
 
         Spacer(modifier = Modifier.weight(0.1f))
-        Spacer(modifier = Modifier.weight(1f))
         Spacer(modifier = Modifier.height(dimensions.small))
         Spacer(modifier = Modifier.height(dimensions.small))
 
-        TextContents(dimensions)
+
+        //Title & Subtitle
+        TitleContents(dimensions)
 
 
         Spacer(modifier = Modifier.height(dimensions.medium))
         Spacer(modifier = Modifier.height(dimensions.medium))
-
 
         LinearProgressIndicator(
             color = MaterialTheme.colorScheme.primary,
@@ -132,22 +161,69 @@ fun SellFrame1Contents(dimensions: Dimensions,onNextClicked: () -> Unit) {
                 .align(CenterHorizontally)
         )
 
-        Spacer(modifier = Modifier.height(dimensions.small))
+        Spacer(modifier = Modifier.height(dimensions.smallMedium))
 
-        GetStartedButton(onNextClicked)
+        //Next Button
+        SellFrameButton(onNextClicked)
 
         Spacer(modifier = Modifier.height(dimensions.mediumLarge))
 
     }
 
 
+}
+
+
+@Composable
+fun Input_bKashNumber() {
+    var phoneNumber by remember { mutableStateOf("") }
+
+    CustomInputBox(
+        caption = "bKash Number",
+        value = phoneNumber,
+        onValueChange = { phoneNumber = it },
+        isClearable = true,
+        onClearClick = { phoneNumber = "" },
+        leadingIcon = R.drawable.mobile_icon,
+        textInputType = TextInputType.Number,
+    )
+}
+
+
+@Composable
+fun NumberVariation() {
+    var text by remember { mutableStateOf("") }
+
+    CustomInputBox(
+        caption = "Reconfirm bKash Number",
+        value = text,
+        onValueChange = { text = it },
+        trailingIcon = R.drawable.cancel_wizard,
+        isLeadingIconStart = false,
+        isClearable = true,
+        onClearClick = { text = "" },
+        textInputType = TextInputType.Number,
+    )
 
 
 }
 
-@Composable
-fun GetStartedButton(onNextClicked: () -> Unit) {
 
+@Composable
+fun SellerDescription() {
+    var text by remember { mutableStateOf("") }
+
+    CustomInputBox(
+        caption = "Reconfirm bKash Number",
+        value = text,
+        onValueChange = { text = it },
+        onClearClick = { text = "" },
+        textInputType = TextInputType.LongText,
+    )
+}
+
+@Composable
+fun SellFrameButton(onNextClicked: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -155,11 +231,11 @@ fun GetStartedButton(onNextClicked: () -> Unit) {
         contentAlignment = Alignment.Center
     ) {
         Column(
-            horizontalAlignment =CenterHorizontally,
+            horizontalAlignment = CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            CustomButton(buttonText = "Get Started") {
-                    onNextClicked()
+            CustomButton(buttonText = "Next") {
+                onNextClicked()
 
             }
         }
@@ -167,29 +243,28 @@ fun GetStartedButton(onNextClicked: () -> Unit) {
 }
 
 @Composable
-fun TextContents(dimensions: Dimensions) {
+fun TitleContents(dimensions: Dimensions) {
 
     ReusableText(
-        text = "Earn",
-        style = TextStyleVariables.TitleStyle,
+        text = "Register as seller",
+        style = TextStyleVariables.TitleStyle
+
     )
 
     Spacer(modifier = Modifier.height(dimensions.smallMedium))
 
     ReusableText(
-        text = "Start earning by selling your digital contents or skills.",
+        text = "A bKash number is required.",
         style = TextStyleVariables.SubtitleStyle
+
     )
-
-
-
 }
 
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun SellFrameStartingDefaultScreen() {
-    SellFrame1 {
+fun SellFrameView2() {
+    SellFrame2 {
 
     }
 }

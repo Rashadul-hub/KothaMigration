@@ -1,9 +1,5 @@
 package com.example.kothamigration.utils
 
-import androidx.compose.ui.graphics.Color
-import com.example.kothamigration.R
-
-
 
 // For Uploading Video Variations
 enum class FileUploadStatus {
@@ -17,6 +13,6 @@ enum class TextInputType {
 
 
 // Data Class For Choice -> SellFrame 3
-data class Choice(val title: String, val subtitle: String)
+data class Choice(val title: String, val subtitle: String, val isEnabled: Boolean)
 
 

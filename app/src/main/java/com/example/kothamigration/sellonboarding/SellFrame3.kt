@@ -180,8 +180,8 @@ fun ChoicesView() {
             item {
                 ChoicesRow(
                     choices = listOf(
-                        Choice("Video", "Sell your video and get paid per download."),
-                        Choice("Image", "Sell your photography or artwork and get paid per download."),
+                        Choice("Video", "Sell your video and get paid per download.",true),
+                        Choice("Image", "Sell your photography or artwork and get paid per download.",true),
                     ),
                     selectedItem = selectedItem,
                     onItemSelected = { selectedItem = it }
@@ -190,8 +190,8 @@ fun ChoicesView() {
             item {
                 ChoicesRow(
                     choices = listOf(
-                        Choice("Skill", "Sell appointments for your time. You get paid for each booked time slot."),
-                        Choice("Audio", "Sell your music and get paid per download."),
+                        Choice("Skill", "Sell appointments for your time. You get paid for each booked time slot.",true),
+                        Choice("Audio", "Sell your music and get paid per download.",false),
                     ),
                     selectedItem = selectedItem,
                     onItemSelected = { selectedItem = it }
@@ -200,8 +200,8 @@ fun ChoicesView() {
             item {
                 ChoicesRow(
                     choices = listOf(
-                        Choice("Pdf", "Sell your e-book, report or blog and get paid for each download."),
-                        Choice("Text", "Sell coupons, promo code, poem and get paid per download."),
+                        Choice("Pdf", "Sell your e-book, report or blog and get paid for each download.",false),
+                        Choice("Text", "Sell coupons, promo code, poem and get paid per download.",false),
                     ),
                     selectedItem = selectedItem,
                     onItemSelected = { selectedItem = it }
@@ -259,8 +259,7 @@ fun SellFrame3Titles(dimensions: Dimensions) {
 @Composable
 fun SellFrameView3() {
 
-    //SellFrame3() {
+    SellFrame3 {
 
-
-   // }
+   }
 }

@@ -24,7 +24,9 @@ object TextStyleVariables{
         fontSize = 18.sp,
         fontWeight = FontWeight(400),
         letterSpacing = 0.5.sp,
-    )
+        textAlign = TextAlign.Start,
+
+        )
 
 
 
@@ -34,6 +36,7 @@ object TextStyleVariables{
         fontSize = 18.sp,
         fontWeight = FontWeight(400),
         letterSpacing = 2.sp,
+        textAlign = TextAlign.Start,
     )
 
     val ErrorTextStyle : TextStyle = TextStyle(

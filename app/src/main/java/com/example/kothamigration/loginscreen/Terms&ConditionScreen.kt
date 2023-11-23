@@ -43,6 +43,8 @@ import com.example.kothamigration.composablefunctions.CustomButton
 import com.example.kothamigration.composablefunctions.SignInTitle
 import com.example.kothamigration.R
 
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TermsAndConditionScreen(navController: NavController) {

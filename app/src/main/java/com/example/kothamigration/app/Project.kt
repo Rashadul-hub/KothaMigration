@@ -13,9 +13,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.kothamigration.model.OnBoardingContent
 import com.example.kothamigration.model.rememberWindowSizeClass
+import com.example.kothamigration.sellonboarding.SellFrameAlertBox
+import com.example.kothamigration.sellonboarding.VideoSellFrame8
 import com.example.kothamigration.theme.KothaTheme
 
-/**This File Contains All The Screens**/
+/**This File Contains All The Screens **/
 
 var darkMode by mutableStateOf(false) //For// Switching Theme Dark -> Light Mode
 
@@ -30,46 +32,41 @@ fun ProjectApp() {
 
         Surface(modifier = Modifier.fillMaxSize()) {
 
-            
-
             NavHost(navController = navController, startDestination = "sell") {
-/**
+
+                /**
                 composable("language") {
-                    LanguageSelectionScreen(navController = navController)
+                LanguageSelectionScreen(navController = navController)
                 }
                 composable("login") {
-                    LoginScreen(navController = navController)
+                LoginScreen(navController = navController)
                 }
                 composable("otp") {
-                    OtpScreen(navController = navController)
+                OtpScreen(navController = navController)
                 }
                 composable("terms") {
-                    TermsAndConditionScreen(navController = navController)
+                TermsAndConditionScreen(navController = navController)
                 }
                 composable("dialog") {
-                    AlertDialog(navController = navController)
+                AlertDialog(navController = navController)
                 }
                 composable("profilesetup") {
-                    ProfileSetUpScreen(navController = navController)
+                ProfileSetUpScreen(navController = navController)
                 }
                 composable("feed") {
-                    FeedScreen()
-                    BottomNavigationBar()
+                FeedScreen()
+                BottomNavigationBar()
                 }
                 composable("mode") {
-                   // SwitchModeScreen(navController = navController)
+                // SwitchModeScreen(navController = navController)
                 }
-*/
+                 */
 
-
-
-                composable("sell"){
+                composable("sell") {
                     OnBoardingContent()
                 }
             }
-
         }
-
     }
 }
 

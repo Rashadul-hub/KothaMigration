@@ -25,6 +25,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.findNavController
+import com.example.kothamigration.model.OnBoardingContent
 import com.example.kothamigration.sellonboarding.SellFrame1
 import com.example.kothamigration.sellonboarding.SellFrame2
 
@@ -37,9 +38,35 @@ class OnBoarding : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
 
+
                 //OnBoardingContent()
             }
         }
     }
 
 }
+
+/** Previous java MAin Activity
+ *
+ * public class MainActivity extends AppCompatActivity {
+ *
+ *
+ *     @Override
+ *     protected void onCreate(Bundle savedInstanceState) {
+ *         super.onCreate(savedInstanceState);
+ *
+ *         setContentView(R.layout.activity_main);
+ *         ComposeView composeView = findViewById(R.id.myComposeView);
+ *
+ *         ComposeBridge composeBridge = new ComposeBridge();
+ *         composeBridge.callMyComposeScreen(composeView,new NavController(this)); //calling The jetpack Compose Screens
+ *
+ *
+ *
+ *     }
+ *
+ * }
+ *
+ *
+ *
+ * **/

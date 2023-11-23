@@ -180,7 +180,7 @@ fun Post_Caption() {
     var text by remember { mutableStateOf(" ") }
 
     CustomInputBox(
-        label = "Post caption",
+        caption = "Post caption",
         value = text,
         onValueChange = { text = it },
         onClearClick = { text = "" },
@@ -194,7 +194,7 @@ fun Video_Title_Optional() {
     var phoneNumber by remember { mutableStateOf("") }
 
     CustomInputBox(
-        label = "Video title (Optional)",
+        caption = "Video title (Optional)",
         value = phoneNumber,
         onValueChange = { phoneNumber = it },
         onClearClick = { phoneNumber = "" },
@@ -208,7 +208,7 @@ fun Tags_Optional() {
     var text by remember { mutableStateOf("") }
 
     CustomInputBox(
-        label = "Tags (Optional)",
+        caption = "Tags (Optional)",
         value = text,
         onValueChange = { text = it },
         onClearClick = { text = "" },
